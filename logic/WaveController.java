@@ -3,6 +3,7 @@ package towerdefence.logic;
 import towerdefence.Configuration;
 import towerdefence.gameelements.*;
 import towerdefence.gui.*; 
+<<<<<<< HEAD
 import java.util.ArrayList; 
 
     //TODO - iga turni lõpus kontrollitakse üle terve enemyList
@@ -10,17 +11,23 @@ import java.util.ArrayList;
     //kui jah, invoketakse wave.removeEnemy
     
     //tõmmatakse wavest..    
+=======
+>>>>>>> 110b5b1768f56f6d15057b230056ed7088a50e86
 
 public class WaveController {
     
     private Wave wave; 
     private LevelController levelController; 
     private boolean waveOver;
+<<<<<<< HEAD
     private final ArrayList<Effect> effectList;
+=======
+>>>>>>> 110b5b1768f56f6d15057b230056ed7088a50e86
     
     public WaveController(Wave wave, LevelController levelController) {
         
         this.wave = wave;
+<<<<<<< HEAD
         this.levelController = levelController;
         this.effectList = new ArrayList<Effect>();
         
@@ -33,10 +40,17 @@ public class WaveController {
     
     public void removeEffect(Effect effect) {
         this.effectList.remove(effect);
+=======
+        this.levelController = levelController; 
+        
+        waveOver = false;                 
+        
+>>>>>>> 110b5b1768f56f6d15057b230056ed7088a50e86
     }
     
     public void start() {
         
+<<<<<<< HEAD
         //TODO - FAAS 1 - vastaste lisamine jne? 
         //praegune mõte - kõik tulevad järjest mingisse ruutu, mis ei asu laual?
         //ja kust järgmine ruut on mingi algusruut? 
@@ -44,6 +58,11 @@ public class WaveController {
         
         while(!waveOver) {                      
             turn();         
+=======
+        while(!waveOver) {
+            //TODO
+        
+>>>>>>> 110b5b1768f56f6d15057b230056ed7088a50e86
             this.setWaveOver();
         }
         
@@ -54,6 +73,7 @@ public class WaveController {
         //TODO - siin siis tehakse kõik!!!!!
                 
         
+<<<<<<< HEAD
         //TODO - FAAS 1 - arvuta raha
         
         //TODO - FAAS 2/3 - arvuta mana jne
@@ -83,6 +103,17 @@ public class WaveController {
                wave.removeEnemy(enemy);
            }
         }        
+=======
+        //arvuta rahad, manad, jne
+        
+        
+        //liiguta kollid uutele kohtadele
+        
+        
+        //protsessi efektid
+        
+        
+>>>>>>> 110b5b1768f56f6d15057b230056ed7088a50e86
         
         levelController.getGameWindow().update();
     }
@@ -91,19 +122,25 @@ public class WaveController {
     //mõelda.. kuidas täpselt.. 
     private void microturn() {
         
+<<<<<<< HEAD
         //TODO - lahendada asi nii, et igale enemyle paned külge mingi linkedlisti vms?
         //kust võtab järjest uusi positsiooni vastavalt microturnile? sest need positsioonid
         //saab ju turni alguses välja arvutada..? 
         
         //ja kuna moveEnemy tehakse? 
         
+=======
+>>>>>>> 110b5b1768f56f6d15057b230056ed7088a50e86
     }
     
     private void setWaveOver() {
         //TODO - arvuta kas wave on läbi.. 
         
+<<<<<<< HEAD
         //siin vaata seda ka kas effectslist on tühi vms..? 
         
+=======
+>>>>>>> 110b5b1768f56f6d15057b230056ed7088a50e86
     }
     
     

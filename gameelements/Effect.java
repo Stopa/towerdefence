@@ -8,6 +8,7 @@ package towerdefence.gameelements;
 //seejärel käiakse UUESTI üle kõik effektid, ja kui selle aeg on läbi, eemaldatakse see
 //effektide järjendist. 
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 
 public class Effect {
@@ -29,11 +30,24 @@ public class Effect {
      * @param targetType
      * @param type 
      */
+=======
+public class Effect {
+    
+    private final Target targetType; 
+    private final Type type; 
+    
+    private final int totalTime;
+    private final int amount; //damage, slow amount, jne.. olenevalt tüübist
+    private int elapsedTime;         
+    
+    
+>>>>>>> 110b5b1768f56f6d15057b230056ed7088a50e86
     public Effect(int totalTime, int amount, Target targetType, Type type) {
         this.totalTime = totalTime;
         this.elapsedTime = 0; 
         this.amount = amount; 
         this.targetType = targetType;
+<<<<<<< HEAD
         this.damageType = type; 
     }
     
@@ -133,18 +147,38 @@ public class Effect {
      * Tagastab efekti kestvuse koguaja (palju ta lõpuks kokku kestab) turnides.
      * @return 
      */
+=======
+        this.type = type; 
+    }
+    
+    public void process() {
+        //TODO - kogu effecti protsessimine tehakse siin, olenevalt tüübist!!!
+        
+        increaseElapsedTime(); 
+    }
+    
+    //TODO - kui tõsi, siis iga turni lõpus eemaldatakse
+    public boolean isElapsed() {
+        return this.elapsedTime >= this.totalTime; 
+    }
+    
+>>>>>>> 110b5b1768f56f6d15057b230056ed7088a50e86
     public int getTotalTime() {
         return this.totalTime; 
     }
     
+<<<<<<< HEAD
     /**
      * Tagastab efekti targetType (single, splash). 
      * @return
      */
+=======
+>>>>>>> 110b5b1768f56f6d15057b230056ed7088a50e86
     public Target getTargetType() {
         return this.targetType; 
     }
     
+<<<<<<< HEAD
     /**
      * Tagastab efekti tüübi (damage, slow). 
      * @return 
@@ -159,10 +193,17 @@ public class Effect {
      * slow - kui palju aeglustab
      * @return 
      */
+=======
+    public Type getType() {
+        return this.type; 
+    }
+    
+>>>>>>> 110b5b1768f56f6d15057b230056ed7088a50e86
     public int getAmount() {
         return this.amount; 
     }
     
+<<<<<<< HEAD
     /**
      * Suurendab aega, palju efekt kestnud on. 
      */
@@ -177,6 +218,19 @@ public class Effect {
     
     public enum Type {
         DAMAGE, SLOW; 
+=======
+    private void increaseElapsedTime() {
+        this.elapsedTime++; 
+        if (elapsedTime > totalTime) throw new AssertionError(); //TODO
+    }
+            
+    public enum Target {
+        Single, Splash; 
+    }
+    
+    public enum Type {
+        Damage, Slow, DecreaseArmor; 
+>>>>>>> 110b5b1768f56f6d15057b230056ed7088a50e86
     }
 
 }

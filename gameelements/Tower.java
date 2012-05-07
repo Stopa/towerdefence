@@ -1,5 +1,6 @@
 package towerdefence.gameelements;
 
+<<<<<<< HEAD
 import towerdefence.Configuration; 
 import java.util.ArrayList; 
 
@@ -130,5 +131,14 @@ public enum TowerType {
         return (int)(this.baseRange + (level * rangeLevelCoefficient));
     }
 }    
+=======
+public class Tower {
+    
+    private int level; 
+    
+    public Tower() {
+        this.level = 1; 
+    }
+>>>>>>> 110b5b1768f56f6d15057b230056ed7088a50e86
 
 }
