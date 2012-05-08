@@ -2,13 +2,20 @@ package towerdefence.gameelements;
 
 import java.util.*; 
 
+//FAAS 1 - TODO!!
+//kust saab enemylisti? 
+
 public class Wave {
     
     private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();  
+    private final Level level;
     
-    public Wave() {
-<<<<<<< HEAD
-        //TODO? 
+    public Wave(Level level) {
+        this.level = level;        
+    }
+    
+    public Level getLevel() {
+        return this.level;
     }
     
     public ArrayList<Enemy> getEnemyList() {
@@ -20,13 +27,5 @@ public class Wave {
         this.enemyList.remove(enemy);     
         enemy.die();
     }
-=======
-        
-    }
-    
-    public ArrayList getEnemyList() {
-        return this.enemyList; 
-    }
->>>>>>> 110b5b1768f56f6d15057b230056ed7088a50e86
 
 }
