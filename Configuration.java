@@ -3,8 +3,8 @@ package towerdefence;
 public final class Configuration {
     
     //LEVEL
-    public static final int LEVEL_HEIGHT = 50;
-    public static final int LEVEL_WIDTH = 50; 
+    public static final int LEVEL_HEIGHT = 20;
+    public static final int LEVEL_WIDTH = 20; 
     
     //TOWERS
     //Arrowtower
