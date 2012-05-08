@@ -1,4 +1,4 @@
-package levelbuilder;
+package towerdefence.levelbuilder;
 
 import java.awt.*; 
 import java.awt.event.*; 
@@ -181,7 +181,8 @@ public class LevelBuilder extends JFrame implements ActionListener {
         waveKnightField.setBounds(150,345,40,20);
         this.add(waveKnightField);
         
-        waveArcherLabel = new JLabel("Vibumehed");
+        //las jääda hetkel nii.. 
+        waveArcherLabel = new JLabel("Ratsavägi");
         waveArcherLabel.setBounds(10,370,140,20);
         this.add(waveArcherLabel);
         
@@ -300,7 +301,7 @@ public class LevelBuilder extends JFrame implements ActionListener {
         	this.currentTerrainType = TerrainType.OUTPOST;
         } /*else if(e.getSource() == this.cleanButton) {
         	this.currentTerrainType = TerrainType.EMPTY;
-        }*/ /* grid buttons */else if(e.getSource().getClass().getName() == "levelbuilder.LevelBuilder$GridButton") {
+        }*/ /* grid buttons */else if(e.getSource().getClass().getName() == "towerdefence.levelbuilder.LevelBuilder$GridButton") {
         	GridButton object = (GridButton)e.getSource();
         	object.setTerrainType(this.currentTerrainType);
         }
@@ -725,73 +726,6 @@ public class LevelBuilder extends JFrame implements ActionListener {
     	}
     	
     	
-    }
-    
-    
-            
-            
-            
+    }      
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* SALVESTAMISEKS MIDAGI TAOLIST.. 
-    try {
-    String filename = fname.getText();
-    File f = new File("C:\\" + filename + ".txt");
-    f.delete();
-    f.createNewFile();
-    FileWriter fw = new FileWriter(f);
-    BufferedWriter bfw = new BufferedWriter(fw);
-
-    String lh;
-    if (height <= 99) lh = "0" + Integer.toString(height);
-    else lh = Integer.toString(height);
-    bfw.write(lh);
-    String lw;
-    if (width <= 99) lw = "0" + Integer.toString(width);
-    else lw = Integer.toString(width);
-    bfw.write(lw);
-    
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            String s = tileMapGrids[i][j].getText();
-            int g = Integer.parseInt(s);
-            int gc = convertToGroundCodes(g);
-            String wr = Integer.toString(gc);
-            bfw.write(wr);
-         } }
-
-    String sh;
-    if (selfHeight <= 9) sh = "0" + Integer.toString(selfHeight);
-    else sh = Integer.toString(selfHeight);
-    bfw.write(sh);
-    String sw;
-    if (selfWidth <= 9) sw = "0" + Integer.toString(selfWidth);
-    else sw = Integer.toString(selfWidth);
-    bfw.write(sw);
-    bfw.close();
-    fw.close();
-    }
-
-    catch (Exception e) {
-        fname.setText(e.getMessage());
-    }
- * 
- */
