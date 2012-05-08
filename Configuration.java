@@ -3,8 +3,8 @@ package towerdefence;
 public final class Configuration {
     
     //LEVEL
-    public static final int LEVEL_HEIGHT = 50;
-    public static final int LEVEL_WIDTH = 50; 
+    public static final int LEVEL_HEIGHT = 20;
+    public static final int LEVEL_WIDTH = 20; 
     
     //TOWERS
     //Arrowtower
@@ -12,20 +12,15 @@ public final class Configuration {
     public static final int TOWER_ARROWTOWER_ATTACKLEVELCOEFFICIENT = 1; 
     public static final int TOWER_ARROWTOWER_BASESPEED = 1; 
     public static final int TOWER_ARROWTOWER_SPEEDLEVELCOEFFICIENT = 1; 
-<<<<<<< HEAD
     public static final int TOWER_ARROWTOWER_BASERANGE = 1;
     public static final int TOWER_ARROWTOWER_RANGELEVELCOEFFICIENT = 1;
     
     //Cannontower
-=======
-    
-    
->>>>>>> 110b5b1768f56f6d15057b230056ed7088a50e86
+
     public static final int TOWER_CANNONTOWER_BASEATTACK = 1; 
     public static final int TOWER_CANNONTOWER_ATTACKLEVELCOEFFICIENT = 1; 
     public static final int TOWER_CANNONTOWER_BASESPEED = 1; 
     public static final int TOWER_CANNONTOWER_SPEEDLEVELCOEFFICIENT = 1; 
-<<<<<<< HEAD
     public static final int TOWER_CANNONTOWER_BASERANGE = 1;
     public static final int TOWER_CANNONTOWER_RANGELEVELCOEFFICIENT = 1;     
     
@@ -35,20 +30,7 @@ public final class Configuration {
     
     //VILLAGE
     public static final int GRID_VILLAGE_MAXHEALTH = 10; 
-=======
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
->>>>>>> 110b5b1768f56f6d15057b230056ed7088a50e86
+
     
     //UI
     //GameWindow
