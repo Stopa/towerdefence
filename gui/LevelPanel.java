@@ -35,18 +35,18 @@ public class LevelPanel extends JPanel {
         this.drawingActive = false;   
 
         try {
-            pathImage = ImageIO.read(new File("src\\bitmapimages\\road.png"));
-            grassImage = ImageIO.read(new File("src\\bitmapimages\\grass.png"));
-            forestImage = ImageIO.read(new File("src\\bitmapimages\\forest.png"));
-            villageImage = ImageIO.read(new File("src\\bitmapimages\\village.png"));
-            castleImage = ImageIO.read(new File("src\\bitmapimages\\fort1.png"));
+            pathImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\road.png"));
+            grassImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\grass.png"));
+            forestImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\forest.png"));
+            villageImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\village.png"));
+            castleImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\fort1.png"));
             
-            arrowtowerImage = ImageIO.read(new File("src\\bitmapimages\\arrowtower.png"));
-            cannontowerImage = ImageIO.read(new File("src\\bitmapimages\\cannontower.png"));
+            arrowtowerImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\arrowtower.png"));
+            cannontowerImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\cannontower.png"));
             
-            infantryImage = ImageIO.read(new File("src\\bitmapimages\\infantry.png"));
-            cavalryImage = ImageIO.read(new File("src\\bitmapimages\\cavalry.png"));
-            knightImage = ImageIO.read(new File("src\\bitmapimages\\knight.png"));
+            infantryImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\infantry.png"));
+            cavalryImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\cavalry.png"));
+            knightImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\knight.png"));
         }
         catch (IOException ioe) {
            ioe.printStackTrace(); 
@@ -59,10 +59,7 @@ public class LevelPanel extends JPanel {
     
     //TODO - testimiseks!!! hiljem kustutatakse.. 
     public void draw() {
-        
-        repaint(); 
-        
-        /*
+
         drawingActive = true;
         
         while (drawingActive) {            
@@ -77,8 +74,6 @@ public class LevelPanel extends JPanel {
            i++;
            if (i == 80) drawingActive = false; 
         }                        
-         * 
-         */
     }
 
     @Override
@@ -93,6 +88,7 @@ public class LevelPanel extends JPanel {
                    Configuration.LEVELPANEL_HEIGHT); 
         
         
-        g.drawImage(infantryImage, 100, 100, null);     
+        g.drawImage(infantryImage, i*5, i*5, null);     
+        
     }
 }
