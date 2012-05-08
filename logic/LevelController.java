@@ -8,37 +8,29 @@ public class LevelController {
     
     private GameWindow gameWindow;
     private Level level; 
-    private WaveController waveController;
+    private WaveController waveController;    
     
     public LevelController(GameWindow gameWindow, Level level) {
-        
+        this.gameWindow = gameWindow;
+        this.level = level;
+        this.waveController = null; 
+        this.startBuildingPhase();
     }
-    
-    
-    
-    
-    
-    //kutsutakse välja wavecontrolleri poolt
+                    
+    //kutsutakse välja wavecontrolleri poolt iga wave lõpus
     public void startBuildingPhase() {
-        //TODO
-        
-        
-        waveController = null; //gc
-        
+                
+        waveController = null; //gc        
         gameWindow.setBuildingPhase(true);
     }
     
     
     //kutsutakse välja siis kui mängija "start" nuppu klikkab vms.. 
+    //ehk kui parasjagu on building phase ja mängija otsustab et aitab.. 
     public void startCombatPhase() {
         gameWindow.setBuildingPhase(false);
         waveController = new WaveController(level.getCurrentWave(), this); 
-        waveController.start(); 
-        
-        //loo uus waveController..
-        
-        
-        //TODO
+        waveController.start();         
     }
     
     public GameWindow getGameWindow() {

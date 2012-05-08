@@ -3,20 +3,38 @@ package towerdefence.gui;
 import java.awt.*; 
 import java.awt.event.*; 
 import javax.swing.*;
+import java.io.*; 
 
 import towerdefence.Configuration; 
 
 public class LevelPanel extends JPanel {
     
+    private final ImageIcon pathImage;
+    private final Image grassImage;
+    private final Image forestImage;
+    
+    private final Image arrowtowerImage;
+    private final Image cannontowerImage; 
+    
+    private final Image infantryImage;
+    private final Image cavalryImage;
+    private final Image knightImage;
+    
+    
     private boolean drawingActive; 
     int i = 0;     
     
-    private GameWindow gameWindow; 
+    private GameWindow gameWindow;         
     
     LevelPanel (GameWindow gameWindow) {
         this.gameWindow = gameWindow; 
-        this.drawingActive = false;          
+        this.drawingActive = false;   
+        
+        this.pathImage = new ImageIcon("road.bmp");        
+        
     }
+    
+
     
     //REPAINT KUTSUTAKSE VÄLJA GAMEWINDOWST VMS!!!!!
     
