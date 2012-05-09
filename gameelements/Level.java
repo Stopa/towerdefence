@@ -103,16 +103,27 @@ public class Level {
         int levelHeight = Integer.parseInt(scontent.substring(ptr, ptr+2));
         ptr += 2; 
         int levelWidth = Integer.parseInt(scontent.substring(ptr, ptr+2));
-        ptr += 2;        
-        
-        //TODO - SIIA JÄI POOLELI!!!!!!!!!
-                                    
-        //LOE LEVEL SISSE        
-        
-        //siin hoitakse gride..
-        Grid[][] tmpGridArray = new Grid[levelWidth][levelHeight]; //TODO - FAAS 1
+        ptr += 2;
+
+		//TODO - linked grids
         //siin hoitakse linked gride.. sama indeks mis gridil, [0] = xcoord, [1] = ycoord
         ArrayList<int[]>[][] tmpLinkedGrids = new ArrayList[levelWidth][levelHeight];
+        
+        Grid[][] tmpGridArray = new Grid[levelWidth][levelHeight];
+        
+        for(int y = 0;y<levelHeight;y++) {
+        	for(int x = 0;x<levelWidth;x++) {
+        		int tx = Integer.parseInt(scontent.substring(ptr, ptr+2));
+        		ptr += 2;
+        		int ty = Integer.parseInt(scontent.substring(ptr, ptr+2));
+        		ptr += 2;
+        		Grid.GridType gt = Grid.GridType.getById(Integer.parseInt(scontent.substring(ptr, ptr+2)));
+        		ptr += 2;
+        		Grid gd = new Grid(tx,ty,gt);
+        		tmpGridArray[tx][ty] = gd;
+        	}
+        }    
+
         
         //tekitame ajutise massiivi, kus hoiame lingitud gridide koordinaate - sest
         //objekte endid ei pruugi veel olemas olla.. 
@@ -134,14 +145,19 @@ public class Level {
             }
         }
         
-        int waveAmount = 0; //TODO - FAAS 1
+        int waveAmount = Integer.parseInt(scontent.substring(ptr,ptr+2));
+        ptr += 2;
         
         Wave[] tmpWaveArray = new Wave[waveAmount];
-        
-        ///TODO - FAAS 1 - SET UP WAVES        
+             
         for (int i = 0; i < waveAmount; i++) {
-            tmpWaveArray[i] = new Wave(this); 
-            //TODO - rest.. 
+        	int infantry =Integer.parseInt(scontent.substring(ptr, ptr+3));
+        	ptr += 3;
+        	int knights =Integer.parseInt(scontent.substring(ptr, ptr+3));
+        	ptr += 3;
+        	int cavalry =Integer.parseInt(scontent.substring(ptr, ptr+3));
+        	ptr += 3;
+            tmpWaveArray[i] = new Wave(this, infantry, knights, cavalry); 
         }        
         
         

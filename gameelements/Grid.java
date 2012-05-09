@@ -107,18 +107,20 @@ public class Grid {
     
 public enum GridType {
     
-    PATH(Color.GRAY, 0), //tee, mida mööda kollid käivad
-    FOREST(Color.BLACK, 0), //mets, kuhu torni paigutada ei saa
-    GRASS(Color.GREEN, 0), //muru - saab torni paigutada
-    VILLAGE(Color.BLUE, Configuration.GRID_VILLAGE_MAXHEALTH), //küla - 
-    CASTLE(Color.RED, Configuration.GRID_CASTLE_MAXHEALTH); //"loss" - kollide lõppeesmärk
+    PATH(Color.GRAY, 0,02), //tee, mida mööda kollid käivad
+    FOREST(Color.BLACK, 0,03), //mets, kuhu torni paigutada ei saa
+    GRASS(Color.GREEN, 0,01), //muru - saab torni paigutada
+    VILLAGE(Color.BLUE, Configuration.GRID_VILLAGE_MAXHEALTH,04), //küla - 
+    CASTLE(Color.RED, Configuration.GRID_CASTLE_MAXHEALTH,05); //"loss" - kollide lõppeesmärk
         
     private final Color gridColor; //TODO - hiljem eemaldada..? 
     private final int maxHealth; //seda tüüpi gridide max "elu", mida kollid hävitavad
+    private int id; // ID - levelite laadimiseks etc
         
-    GridType(Color gridColor, int maxHealth) {
+    GridType(Color gridColor, int maxHealth, int id) {
         this.gridColor = gridColor; 
         this.maxHealth = maxHealth; 
+        this.id = id;
     }
     
     /**
@@ -127,6 +129,20 @@ public enum GridType {
      */
     public int getMaxHealth() {
         return this.maxHealth;
+    }
+    
+    public int getId() {
+    	return this.id;
+    }
+    
+    public static GridType getById(int id) {
+    	GridType result = null;
+    	for(GridType gt:GridType.values()) {
+    		if(gt.getId() == id) {
+    			result = gt;
+    		}
+    	}
+    	return result;
     }
 
 }    

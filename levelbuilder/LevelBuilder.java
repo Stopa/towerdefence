@@ -335,7 +335,7 @@ public class LevelBuilder extends JFrame implements ActionListener {
     	Wave currwave = waves.get(index);
     	waveInfantryField.setText(currwave.getInfantry()+"");
     	waveKnightField.setText(currwave.getKnights()+"");
-    	waveArcherField.setText(currwave.getArchers()+"");
+    	waveArcherField.setText(currwave.getcavalry()+"");
     }
     
     private void saveCurrentWave() {
@@ -343,7 +343,7 @@ public class LevelBuilder extends JFrame implements ActionListener {
     	
     	currwave.setInfantry(Integer.parseInt(waveInfantryField.getText()));
     	currwave.setKnights(Integer.parseInt(waveKnightField.getText()));
-    	currwave.setArchers(Integer.parseInt(waveArcherField.getText()));
+    	currwave.setcavalry(Integer.parseInt(waveArcherField.getText()));
     }
     
     private void newLevel() {
@@ -415,7 +415,7 @@ public class LevelBuilder extends JFrame implements ActionListener {
         for(Wave wv: waves) {
         	toWrite += wv.getInfantryString();
         	toWrite += wv.getKnightsString();
-        	toWrite += wv.getArchersString();
+        	toWrite += wv.getcavalryString();
         }
         
         try {
@@ -437,21 +437,16 @@ public class LevelBuilder extends JFrame implements ActionListener {
     private void loadLevel() {
         //TODO 
         
-        //esimesed 3 numbrit: x posid
-        //3-6: y posid
+        //esimesed 2 numbrit: x posid
+        //3-4: y posid
         
         //ehk x * y - gridide arv
         
         //iga gridi kohta X numbrit:
-        //0-1: 1 taseme layer (grid type), int näol
-        //2-3: 2 taseme layer (tornid jne), int näol
-        //4: lingitud gridide arv (0-9?)
-        //lingitud gridide arv * 4: lingitud gridid formaadis xx-yy
+        //0-1: terrain tüüp
         
         //järgmised 2: wavede hulk
-        //iga wave puhul:
-        //esimene number: kollide hulk waves
-        //kollide hulk * 2: (iga kolli puhul 2 numbrit): kolli tüüp
+        //iga wave puhulkolm kolmekohalist numbrit - kollide arv waves
     	
     	String filename = this.filenameField.getText();
     	if(filename.length() == 0) {
@@ -540,9 +535,9 @@ public class LevelBuilder extends JFrame implements ActionListener {
             	ptr += 3;
             	int currentWaveKnights = Integer.parseInt(scontent.substring(ptr, ptr+3));
             	ptr += 3;
-            	int currentWaveArchers = Integer.parseInt(scontent.substring(ptr, ptr+3));
+            	int currentWavecavalry = Integer.parseInt(scontent.substring(ptr, ptr+3));
             	ptr += 3;
-                Wave wv = new Wave(currentWaveInfantry, currentWaveKnights, currentWaveArchers);
+                Wave wv = new Wave(currentWaveInfantry, currentWaveKnights, currentWavecavalry);
                 addWave(wv);
             }
         }
@@ -563,7 +558,7 @@ public class LevelBuilder extends JFrame implements ActionListener {
     	PATH(02,Color.orange),
     	FOREST(03,Color.black),
     	OUTPOST(04,Color.blue),
-    	EMPTY(00, Color.white);
+    	EMPTY(00, Color.white);//TODO - pole vaja?
     	
     	private int id;
     	private Color color;
@@ -653,7 +648,7 @@ public class LevelBuilder extends JFrame implements ActionListener {
     private class Wave {
     	private int infantry;
     	private int knights;
-    	private int archers;
+    	private int cavalry;
     	
     	public Wave() {
     		this(0,0,0);
@@ -662,7 +657,7 @@ public class LevelBuilder extends JFrame implements ActionListener {
     	public Wave(int inum, int knum, int anum) {
     		this.infantry = inum;
     		this.knights = knum;
-    		this.archers = anum;
+    		this.cavalry = anum;
     	}
     	
     	public void setInfantry(int number) {
@@ -705,23 +700,23 @@ public class LevelBuilder extends JFrame implements ActionListener {
     		}
     	}
     	
-    	public void setArchers(int number) {
-    		this.archers = number;
+    	public void setcavalry(int number) {
+    		this.cavalry = number;
     	}
     	
-    	public int getArchers() {
-    		return this.archers;
+    	public int getcavalry() {
+    		return this.cavalry;
     	}
     	
-    	public String getArchersString() {
-    		if((""+archers).length() < 3) {
-    			if((""+archers).length() < 2) {
-    				return "00"+archers;
+    	public String getcavalryString() {
+    		if((""+cavalry).length() < 3) {
+    			if((""+cavalry).length() < 2) {
+    				return "00"+cavalry;
     			} else {
-    				return "0"+archers;
+    				return "0"+cavalry;
     			}
     		} else {
-    			return archers+"";
+    			return cavalry+"";
     		}
     	}
     	
