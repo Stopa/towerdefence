@@ -2,6 +2,7 @@ package towerdefence.gameelements;
 
 import towerdefence.Configuration;
 import java.util.*; 
+import java.io.*; 
 
 //TODO - FAAS 1
 //mängija raha
@@ -78,22 +79,35 @@ public class Level {
      * @param filename 
      */
     private void loadLevel(String filename) {
-                            
         
-        //LOE LEVEL SISSE
+        File f = null;
+        FileReader fr = null;
+        BufferedReader bfr = null;  
+        String scontent = null;
         
-        int waveAmount = 0; //TODO - FAAS 1
-        
-        Wave[] tmpWaveArray = new Wave[waveAmount];
-        
-        ///TODO - FAAS 1 - SET UP WAVES        
-        for (int i = 0; i < waveAmount; i++) {
-            tmpWaveArray[i] = new Wave(); 
-            //TODO - rest.. 
+        try {
+            f = new File(filename);        
+            fr = new FileReader(f);
+            bfr = new BufferedReader(fr);        
+            char[] ccontent = new char[(int)f.length()];                    
+            bfr.read(ccontent);                                    
+            scontent = new String(ccontent);
+            ccontent = null;            
+        }
+        catch (IOException ioe) {
+            ioe.printStackTrace();
         }
         
-        int levelWidth = 0; //TODO - FAAS 1
-        int levelHeight = 0; //TODO - FAAS 1
+        int ptr = 0;  
+        
+        int levelHeight = Integer.parseInt(scontent.substring(ptr, ptr+2));
+        ptr += 2; 
+        int levelWidth = Integer.parseInt(scontent.substring(ptr, ptr+2));
+        ptr += 2;        
+        
+        //TODO - SIIA JÄI POOLELI!!!!!!!!!
+                                    
+        //LOE LEVEL SISSE        
         
         //siin hoitakse gride..
         Grid[][] tmpGridArray = new Grid[levelWidth][levelHeight]; //TODO - FAAS 1
@@ -120,8 +134,87 @@ public class Level {
             }
         }
         
+        int waveAmount = 0; //TODO - FAAS 1
+        
+        Wave[] tmpWaveArray = new Wave[waveAmount];
+        
+        ///TODO - FAAS 1 - SET UP WAVES        
+        for (int i = 0; i < waveAmount; i++) {
+            tmpWaveArray[i] = new Wave(this); 
+            //TODO - rest.. 
+        }        
+        
         
         this.waveArray = tmpWaveArray;
         this.gridArray = tmpGridArray;
     }    
 }
+
+
+/*
+ *         //TODO 
+        
+        //esimesed 3 numbrit: x posid
+        //3-6: y posid
+        
+        //ehk x * y - gridide arv
+        
+        //iga gridi kohta X numbrit:
+        //0-1: 1 taseme layer (grid type), int näol
+        //2-3: 2 taseme layer (tornid jne), int näol
+        //4: lingitud gridide arv (0-9?)
+        //lingitud gridide arv * 4: lingitud gridid formaadis xx-yy
+        
+        //järgmised 2: wavede hulk
+        //iga wave puhul:
+        //esimene number: kollide hulk waves
+        //kollide hulk * 2: (iga kolli puhul 2 numbrit): kolli tüüp
+
+                
+        
+
+            
+                      
+            for(int iy = 0;iy < height;iy++) {
+            	for(int ix = 0; ix < width; ix++) {
+            		int tx = Integer.parseInt(scontent.substring(ptr, ptr+2));
+            		ptr += 2;
+            		int ty = Integer.parseInt(scontent.substring(ptr, ptr+2));
+            		ptr += 2;
+            		GridButton gb = new GridButton(tx,ty);
+            		gb.addActionListener(this);
+            		gb.setTerrainType(TerrainType.getById(Integer.parseInt(scontent.substring(ptr, ptr+2))));
+            		ptr += 2;
+            		//TODO - linked grid squares
+            		this.gridButtonsPanel.add(gb);
+            		this.gridButtons[tx][ty] = gb;
+            	}
+            }
+            this.gridButtonsPanel.doLayout();
+ * 
+ * 
+ */
+
+
+/*
+            
+            nrOfWaves = Integer.parseInt(scontent.substring(ptr, ptr+2));
+            ptr += 2; 
+            
+            waves = new ArrayList<Wave>();
+            waveNoComboBox.removeActionListener(this); // holla holla get dolla
+            waveNoComboBox.removeAllItems(); // fuck the police
+            waveNoComboBox.addActionListener(this); // sue me
+            
+            for (int i = 0; i < nrOfWaves; i++) {
+            	int currentWaveInfantry = Integer.parseInt(scontent.substring(ptr, ptr+3));
+            	ptr += 3;
+            	int currentWaveKnights = Integer.parseInt(scontent.substring(ptr, ptr+3));
+            	ptr += 3;
+            	int currentWaveArchers = Integer.parseInt(scontent.substring(ptr, ptr+3));
+            	ptr += 3;
+                Wave wv = new Wave(currentWaveInfantry, currentWaveKnights, currentWaveArchers);
+                addWave(wv);
+            }
+        }
+ */

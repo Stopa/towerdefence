@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import towerdefence.Configuration; 
+import towerdefence.gameelements.Level;
 
 //TODO - implements listener, vastavad meetodid.. 
 public class GameWindow extends JFrame {
@@ -14,7 +15,11 @@ public class GameWindow extends JFrame {
     
     private boolean buildingPhaseActive; 
     
-    public GameWindow() {                
+    private Level level; 
+    
+    public GameWindow(Level level) {                
+        
+        this.level = level; 
         
         this.setLayout(null);
         this.setSize(Configuration.GAMEWINDOW_WIDTH,
@@ -34,7 +39,10 @@ public class GameWindow extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setVisible(true); 
-        levelPanel.draw(); 
+    }
+    
+    public Level getLevel() {
+        return this.level; 
     }
     
     

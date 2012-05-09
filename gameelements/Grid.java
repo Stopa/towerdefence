@@ -101,6 +101,10 @@ public class Grid {
         this.enemyList.remove(enemy);
     }       
     
+    public GridType getGridType() {
+        return this.gridType;
+    }
+    
 public enum GridType {
     
     PATH(Color.GRAY, 0), //tee, mida mööda kollid käivad

@@ -6,8 +6,10 @@ import java.awt.image.*;
 import javax.swing.*;
 import java.io.*; 
 import javax.imageio.*; 
+import java.util.EnumMap;
 
 import towerdefence.Configuration; 
+import towerdefence.gameelements.Grid.GridType;
 
 public class LevelPanel extends JPanel {
     
@@ -24,6 +26,8 @@ public class LevelPanel extends JPanel {
     private Image cavalryImage;
     private Image knightImage;
     
+    private EnumMap<GridType,Image> gridImageMap; 
+    
     
     private boolean drawingActive; 
     int i = 0;     
@@ -33,7 +37,14 @@ public class LevelPanel extends JPanel {
     LevelPanel (GameWindow gameWindow) {
         this.gameWindow = gameWindow; 
         this.drawingActive = false;   
+        
+        initImages();
+        initGridImageMap();
 
+
+    }
+    
+    private void initImages() {
         try {
             pathImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\road.png"));
             grassImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\grass.png"));
@@ -50,7 +61,17 @@ public class LevelPanel extends JPanel {
         }
         catch (IOException ioe) {
            ioe.printStackTrace(); 
-        }  
+        }          
+    }
+    
+    private void initGridImageMap() {
+        gridImageMap = new EnumMap<GridType, Image>(GridType.class);
+        
+        gridImageMap.put(GridType.PATH, pathImage);
+        gridImageMap.put(GridType.GRASS, grassImage);                
+        gridImageMap.put(GridType.FOREST, forestImage);
+        gridImageMap.put(GridType.VILLAGE, villageImage);
+        gridImageMap.put(GridType.CASTLE, castleImage);                
     }
     
 
@@ -60,6 +81,7 @@ public class LevelPanel extends JPanel {
     //TODO - testimiseks!!! hiljem kustutatakse.. 
     public void draw() {
 
+        /*
         drawingActive = true;
         
         while (drawingActive) {            
@@ -73,22 +95,24 @@ public class LevelPanel extends JPanel {
             }                   
            i++;
            if (i == 80) drawingActive = false; 
-        }                        
+        } 
+         * 
+         */
     }
 
     @Override
     public void paintComponent(Graphics g) {
- 
-        //puhastame terve väljaku.. - TODO - hiljem ära võtta? 
-        g.setColor(Color.RED);
-                
-        g.fillRect(0, 
-                   0, 
-                   Configuration.LEVELPANEL_WIDTH,
-                   Configuration.LEVELPANEL_HEIGHT); 
         
+        int levelWidth = Configuration.LEVEL_WIDTH;
+        int levelHeight = Configuration.LEVEL_HEIGHT;
         
-        g.drawImage(infantryImage, i*5, i*5, null);     
-        
+        //joonistame gridide taustad..
+        for (int i = 0; i < levelWidth; i++) {
+            for (int j = 0; j < levelHeight; j++) {   
+                Image image = gridImageMap.get(
+                        this.gameWindow.getLevel().getGridAt(i, i).getGridType());
+                g.drawImage(image, i * 30, j * 30, null);
+            }
+        }        
     }
 }
