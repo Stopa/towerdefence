@@ -5,16 +5,12 @@ import towerdefence.gameelements.*;
 import towerdefence.gui.*; 
 import java.util.ArrayList; 
 
-
-
-
 public class WaveController {
     
     private Wave wave; 
     private LevelController levelController; 
     private boolean waveOver;
     private final ArrayList<Effect> effectList;
-
     
     public WaveController(Wave wave, LevelController levelController) {
         
@@ -50,7 +46,10 @@ public class WaveController {
         
     }
     
-    private void turn() {                
+    private void turn() {       
+        
+        
+        //TODO - turni lõpus peab kollile määrama ka uue positsiooni reaalselt.. 
 
         //TODO - FAAS 1 - arvuta raha
         
@@ -74,9 +73,7 @@ public class WaveController {
         //TODO - FAAS 1 - tee kollide liikumine
         for (Enemy enemy : wave.getEnemyList()) {
             enemy.calculateMovePath();
-        }
-                
-        
+        }                        
         
         //protsessime efektid
         for (Effect effect : effectList) {
@@ -89,24 +86,11 @@ public class WaveController {
                wave.removeEnemy(enemy);
            }
         }        
-
         
         levelController.getGameWindow().update();
     }
     
-    //TODO - siin siis teha kõik microliikumine.. 
-    //mõelda.. kuidas täpselt.. 
-    private void microturn() {
-        
 
-        //TODO - lahendada asi nii, et igale enemyle paned külge mingi linkedlisti vms?
-        //kust võtab järjest uusi positsiooni vastavalt microturnile? sest need positsioonid
-        //saab ju turni alguses välja arvutada..? 
-        
-        //ja kuna moveEnemy tehakse? 
-        
-
-    }
     
     private void setWaveOver() {
         //TODO - arvuta kas wave on läbi.. 

@@ -1,6 +1,8 @@
 package towerdefence.gameelements;
 
 import java.util.ArrayList;
+import towerdefence.Configuration;
+import java.util.Random;
 
 public class Enemy {
     
@@ -8,6 +10,7 @@ public class Enemy {
     private int currentHealth; //kolli praegune elu
     private final int speed;  //kolli kiirus (grids per turn) - default 1
     private boolean active; //määrab, kas koll on aktiivne või mitte (elus või mitte). 
+    private final int damage; 
     private Grid grid; //grid, millel koll asub
     private final ArrayList<Grid> movePath; //määrab kolli liikumisteekonna selle turni jooksul
     //TODO - FAAS 1 - mõelda, kas LinkedList poleks parem? 
@@ -16,18 +19,57 @@ public class Enemy {
     private int xcoord; //kolli xcoord joonistatud ekraanil
     private int ycoord; //kolli ycoord joonistatud ekraanil
     
-    public Enemy (int health, int speed, int armor) {
+    private final String type;
+    private Grid previousGrid; 
+    
+    public Enemy (int health, int speed, int damage, String type) {
         this.maxHealth = health; 
         this.currentHealth = maxHealth; 
         this.speed = speed;
+        this.damage = damage; 
+        this.type = type; 
         this.active = true; 
         this.movePath = new ArrayList<Grid>();
+    }
+    
+    public void micromove() {
+        //TODO!!!!!!!!
     }
     
     //TODO - FAAS 1 - kutsutakse välja iga turni alguses
     //määrab ära movePathi selle turni jaoks
     public void calculateMovePath() {
+        this.movePath.clear();
+            
+        Grid tmpPreviousGrid = this.previousGrid;
+        Grid sourceGrid = this.grid; 
+        ArrayList<Grid> possibleGrids = new ArrayList<Grid>(); 
         
+        Random rnd = new Random();
+        
+        int coords[] = {1,1,1,-1,-1,1,-1,-1};
+        
+        for (int i = 0; i < this.speed; i++) {
+            possibleGrids.clear(); 
+            for (int j = 0; j < 4; j++) {
+                int x = coords[i * 2]; //0, 2, 4, 6
+                int y = coords[(i * 2) + 1]; //1, 3, 5, 7
+                Grid adjacentGrid = sourceGrid.getLevel().getGridAt(
+                        sourceGrid.getX() + x, 
+                        sourceGrid.getY() + y);
+                if (adjacentGrid != tmpPreviousGrid &&
+                    adjacentGrid.getGridType() == Grid.GridType.PATH) {
+                    possibleGrids.add(adjacentGrid);
+                }
+            }
+            if (possibleGrids.isEmpty()) throw new AssertionError(); //tupik? ei tohiks juhtuda..
+            
+            int randInt = rnd.nextInt(possibleGrids.size());
+            Grid chosenGrid = possibleGrids.get(randInt);
+            tmpPreviousGrid = sourceGrid; //praegune valitud on nüüd uus eelmine
+            sourceGrid = chosenGrid; //nüüd on see "valitud ruut.."
+            movePath.add(chosenGrid); //lisame movepathi
+        }        
     }
     
     /**
@@ -123,14 +165,40 @@ public class Enemy {
      */
     public void die() {
         this.active = false; 
-    }                        
+    }          
+    
+    public int getDamage() {
+        return this.damage;
+    }
+    
+    public String getType() {
+        return this.type; 
+    }
         
-    //TODO - FAAS 1
-    //factory meetodid siia
     //tagastatakse enemy vastavalt sissesaadud stringile..
-    public Enemy getFactoryEnemy(String type) {
-        //TODO
-        return null; 
+    public static Enemy getFactoryEnemy(String type) {
+        if (type.equals(Configuration.ENEMY_CAVALRY_TYPE)) {
+            return new Enemy(
+                    Configuration.ENEMY_CAVALRY_HEALTH,
+                    Configuration.ENEMY_CAVALRY_SPEED,
+                    Configuration.ENEMY_CAVALRY_DAMAGE,
+                    type);
+        }
+        else if (type.equals(Configuration.ENEMY_INFANTRY_TYPE)) {
+            return new Enemy(
+                    Configuration.ENEMY_INFANTRY_HEALTH,
+                    Configuration.ENEMY_INFANTRY_SPEED,
+                    Configuration.ENEMY_INFANTRY_DAMAGE,
+                    type);                        
+        }
+        else if (type.equals(Configuration.ENEMY_KNIGHT_TYPE)) {
+            return new Enemy(
+                    Configuration.ENEMY_KNIGHT_HEALTH,
+                    Configuration.ENEMY_KNIGHT_SPEED,
+                    Configuration.ENEMY_KNIGHT_DAMAGE,
+                    type);             
+        }
+        else throw new AssertionError(); //mingi vale string.. 
     }
     
 }

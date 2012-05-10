@@ -28,6 +28,10 @@ public class Tower {
         this.gridsList = getGridsList(this); 
     }
     
+    public TowerType getTowerType() {
+        return this.towerType;
+    }
+    
     public static ArrayList<Grid> getGridsList(Tower tower) {
         //TODO - FAAS 1
         return null;

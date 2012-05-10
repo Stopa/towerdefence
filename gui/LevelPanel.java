@@ -7,9 +7,14 @@ import javax.swing.*;
 import java.io.*; 
 import javax.imageio.*; 
 import java.util.EnumMap;
+import java.util.HashMap; 
 
 import towerdefence.Configuration; 
+import towerdefence.gameelements.Enemy;
 import towerdefence.gameelements.Grid.GridType;
+import towerdefence.gameelements.Tower.TowerType;
+import towerdefence.gameelements.Tower;
+import towerdefence.gameelements.AmmoSprite;
 
 public class LevelPanel extends JPanel {
     
@@ -27,6 +32,8 @@ public class LevelPanel extends JPanel {
     private Image knightImage;
     
     private EnumMap<GridType,Image> gridImageMap; 
+    private EnumMap<TowerType,Image> towerImageMap;
+    private HashMap<String, Image> enemyImageMap; 
     
     
     private boolean drawingActive; 
@@ -40,8 +47,8 @@ public class LevelPanel extends JPanel {
         
         initImages();
         initGridImageMap();
-
-
+        initEnemyImageMap();
+        initTowerImageMap(); 
     }
     
     private void initImages() {
@@ -74,30 +81,44 @@ public class LevelPanel extends JPanel {
         gridImageMap.put(GridType.CASTLE, castleImage);                
     }
     
-
-    
-    //REPAINT KUTSUTAKSE VÄLJA GAMEWINDOWST VMS!!!!!
-    
-    //TODO - testimiseks!!! hiljem kustutatakse.. 
-    public void draw() {
-
-        /*
-        drawingActive = true;
+    private void initEnemyImageMap() {        
+        enemyImageMap = new HashMap<String, Image>();
         
-        while (drawingActive) {            
-            repaint();         
-            System.out.println(i); 
+        enemyImageMap.put(Configuration.ENEMY_CAVALRY_TYPE, cavalryImage);
+        enemyImageMap.put(Configuration.ENEMY_INFANTRY_TYPE, infantryImage);
+        enemyImageMap.put(Configuration.ENEMY_KNIGHT_TYPE, knightImage);
+    }
+    
+    private void initTowerImageMap() {
+        towerImageMap = new EnumMap<TowerType, Image>(TowerType.class);
+        
+        towerImageMap.put(TowerType.ArrowTower, arrowtowerImage);
+        towerImageMap.put(TowerType.CannonTower, cannontowerImage); 
+    }
+
+    private void microturn() {
+        
+        for (Enemy enemy : gameWindow.getLevel().getCurrentWave().getEnemyList()) {
+            enemy.micromove();
+        }
+        
+        for (AmmoSprite ammo : gameWindow.getLevel().getCurrentWave().getAmmoSpriteList()) {
+            ammo.micromove();
+        }
+    }
+
+    public void draw() {
+        
+        for (int i = 0; i < Configuration.MICROTURNS; i++) {
             try {
-                Thread.sleep(10);
+                Thread.sleep(Configuration.MICROTURN_INTERVAL);
             }
             catch (InterruptedException ie) {
-                break; 
-            }                   
-           i++;
-           if (i == 80) drawingActive = false; 
-        } 
-         * 
-         */
+                throw new AssertionError(); //TODO - ???
+            }
+            microturn();
+            repaint(); 
+        }
     }
 
     @Override
@@ -105,14 +126,38 @@ public class LevelPanel extends JPanel {
         
         int levelWidth = Configuration.LEVEL_WIDTH;
         int levelHeight = Configuration.LEVEL_HEIGHT;
+        int gridSide = 30; //TODO - pane confi
         
         //joonistame gridide taustad..
         for (int i = 0; i < levelWidth; i++) {
             for (int j = 0; j < levelHeight; j++) {   
                 Image image = gridImageMap.get(
                         this.gameWindow.getLevel().getGridAt(i, i).getGridType());
-                g.drawImage(image, i * 30, j * 30, null);
+                g.drawImage(image, i * gridSide, j * gridSide, null);
+                
             }
-        }        
+        }
+        
+        //joonistame tornid
+        for (int i = 0; i < gameWindow.getLevel().getTowerList().size(); i++) {
+            for (Tower tower : gameWindow.getLevel().getTowerList()) {
+                g.drawImage(
+                        towerImageMap.get(tower.getTowerType()),
+                        tower.getGrid().getX() * gridSide,
+                        tower.getGrid().getY() * gridSide,
+                        null);
+            }            
+        }
+        
+        //joonistame vastased
+        for (int i = 0; i < gameWindow.getLevel().getCurrentWave().getEnemyList().size(); i++) {
+            for (Enemy enemy : gameWindow.getLevel().getCurrentWave().getEnemyList()) {
+                g.drawImage(
+                        enemyImageMap.get(enemy.getType()),
+                        enemy.getCoords()[0], 
+                        enemy.getCoords()[1],
+                        null);
+            }
+        }
     }
 }

@@ -16,7 +16,6 @@ public final class Configuration {
     public static final int TOWER_ARROWTOWER_RANGELEVELCOEFFICIENT = 1;
     
     //Cannontower
-
     public static final int TOWER_CANNONTOWER_BASEATTACK = 1; 
     public static final int TOWER_CANNONTOWER_ATTACKLEVELCOEFFICIENT = 1; 
     public static final int TOWER_CANNONTOWER_BASESPEED = 1; 
@@ -25,6 +24,25 @@ public final class Configuration {
     public static final int TOWER_CANNONTOWER_RANGELEVELCOEFFICIENT = 1;     
     
     
+    //ENEMIES
+    //Cavalry
+    public static final int ENEMY_CAVALRY_HEALTH = 10;
+    public static final int ENEMY_CAVALRY_SPEED = 4;
+    public static final int ENEMY_CAVALRY_DAMAGE = 10;
+    public static final String ENEMY_CAVALRY_TYPE = "cavalry";
+    
+    //Infantry
+    public static final int ENEMY_INFANTRY_HEALTH = 5;
+    public static final int ENEMY_INFANTRY_SPEED = 2;
+    public static final int ENEMY_INFANTRY_DAMAGE = 5;
+    public static final String ENEMY_INFANTRY_TYPE = "infantry";
+        
+    //Knight
+    public static final int ENEMY_KNIGHT_HEALTH = 20;
+    public static final int ENEMY_KNIGHT_SPEED = 1;
+    public static final int ENEMY_KNIGHT_DAMAGE = 20;
+    public static final String ENEMY_KNIGHT_TYPE = "knight";
+        
     //CASTLE
     public static final int GRID_CASTLE_MAXHEALTH = 100;
     
@@ -36,14 +54,15 @@ public final class Configuration {
     //GameWindow
     public static final int GAMEWINDOW_HEIGHT = 600;
     public static final int GAMEWINDOW_WIDTH = 600; 
-    
-    
-    
+            
     //LevelPanel
     public static final int LEVELPANEL_POSX = 0;
     public static final int LEVELPANEL_POSY = 0; 
     public static final int LEVELPANEL_HEIGHT = 400;
     public static final int LEVELPANEL_WIDTH = 600; 
+    
+    public static final int MICROTURNS = 10; 
+    public static final int MICROTURN_INTERVAL = 10; 
     
     
     

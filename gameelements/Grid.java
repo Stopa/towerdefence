@@ -13,15 +13,21 @@ public class Grid {
     private GridType gridType; //selle gridi maastiku tüüp
     private final ArrayList<Grid> linkedGrids;
     private int currentHealth; //kasutatakse village/castle jaoks - praegune elu
+    private final Level level; 
 
     
-    public Grid(int x, int y, GridType gridType) {
+    public Grid(int x, int y, GridType gridType, Level level) {
         this.x = x;
         this.y = y;
         this.gridType = gridType; 
         this.enemyList = new ArrayList<Enemy>();                 
         this.linkedGrids = new ArrayList<Grid>(); 
         this.currentHealth = gridType.getMaxHealth();
+        this.level = level; 
+    }
+    
+    public Level getLevel() {
+        return this.level; 
     }
     
     //TODO - FAAS 1 - kutsutakse välja üks kord leveli loomisel
@@ -148,3 +154,9 @@ public enum GridType {
 }    
  
 }
+
+//TODO - FAAS 1 - GRIDTYPE ÜMBER TEHA:
+//uus boolean meetod: isPassable()
+//path tagastab alati true
+//village/castle tagastavad true siis, kui nad on hävitatud (isBurned() == true) vms
+//sama panna ka kollide liikumist arvutavatesse meetoditesse jne! praegu kontrollitakse pathi..
