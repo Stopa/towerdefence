@@ -58,6 +58,7 @@ public class LevelBuilder extends JFrame implements ActionListener {
     private JButton pathButton;
     private JButton forestButton;
     private JButton outpostButton;
+    private JButton finishButton;
     //private JButton cleanButton;
     private TerrainType currentTerrainType;
         
@@ -71,7 +72,7 @@ public class LevelBuilder extends JFrame implements ActionListener {
     //?
     
     public static void main(String[] args) {
-        new LevelBuilder(); //TODO
+        new LevelBuilder();
     }
     
     public LevelBuilder() {   
@@ -230,6 +231,13 @@ public class LevelBuilder extends JFrame implements ActionListener {
         outpostButton.setForeground(Color.white);
         this.add(outpostButton);
         
+        finishButton = new JButton("Finish");
+        finishButton.setBounds(10,505,180,30);
+        finishButton.addActionListener(this);
+        finishButton.setBackground(Color.yellow);
+        finishButton.setForeground(Color.black);
+        this.add(finishButton);
+        
         /*cleanButton = new JButton("Kustuta");
         cleanButton.setBounds(100,485,90,20);
         cleanButton.addActionListener(this);
@@ -239,7 +247,7 @@ public class LevelBuilder extends JFrame implements ActionListener {
          * end input fields
          */
         
-        this.setSize(715,550);
+        this.setSize(715,600);
         this.setResizable(false);
         this.setLayout(null);                        
         
@@ -299,7 +307,9 @@ public class LevelBuilder extends JFrame implements ActionListener {
         	this.currentTerrainType = TerrainType.FOREST;
         } else if(e.getSource() == this.outpostButton) {
         	this.currentTerrainType = TerrainType.OUTPOST;
-        } /*else if(e.getSource() == this.cleanButton) {
+        } else if(e.getSource() == this.finishButton) {
+        	this.currentTerrainType = TerrainType.FINISH;
+        }/*else if(e.getSource() == this.cleanButton) {
         	this.currentTerrainType = TerrainType.EMPTY;
         }*/ /* grid buttons */else if(e.getSource().getClass().getName() == "towerdefence.levelbuilder.LevelBuilder$GridButton") {
         	GridButton object = (GridButton)e.getSource();
@@ -558,6 +568,7 @@ public class LevelBuilder extends JFrame implements ActionListener {
     	PATH(02,Color.orange),
     	FOREST(03,Color.black),
     	OUTPOST(04,Color.blue),
+    	FINISH(05,Color.yellow),
     	EMPTY(00, Color.white);//TODO - pole vaja?
     	
     	private int id;

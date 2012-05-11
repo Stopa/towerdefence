@@ -119,7 +119,7 @@ public class Level {
         		ptr += 2;
         		Grid.GridType gt = Grid.GridType.getById(Integer.parseInt(scontent.substring(ptr, ptr+2)));
         		ptr += 2;
-        		Grid gd = new Grid(tx,ty,gt);
+        		Grid gd = new Grid(tx,ty,gt,this);
         		tmpGridArray[tx][ty] = gd;
         	}
         }    
