@@ -52,13 +52,13 @@ public final class Configuration {
     
     //UI
     //GameWindow
-    public static final int GAMEWINDOW_HEIGHT = 600;
+    public static final int GAMEWINDOW_HEIGHT = 800;
     public static final int GAMEWINDOW_WIDTH = 600; 
             
     //LevelPanel
     public static final int LEVELPANEL_POSX = 0;
     public static final int LEVELPANEL_POSY = 0; 
-    public static final int LEVELPANEL_HEIGHT = 400;
+    public static final int LEVELPANEL_HEIGHT = 600;
     public static final int LEVELPANEL_WIDTH = 600; 
     
     public static final int MICROTURNS = 10; 

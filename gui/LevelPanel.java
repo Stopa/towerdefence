@@ -132,7 +132,7 @@ public class LevelPanel extends JPanel {
         for (int i = 0; i < levelWidth; i++) {
             for (int j = 0; j < levelHeight; j++) {   
                 Image image = gridImageMap.get(
-                        this.gameWindow.getLevel().getGridAt(i, i).getGridType());
+                        this.gameWindow.getLevel().getGridAt(i, j).getGridType());
                 g.drawImage(image, i * gridSide, j * gridSide, null);
                 
             }
