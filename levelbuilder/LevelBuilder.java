@@ -246,7 +246,7 @@ public class LevelBuilder extends JFrame implements ActionListener {
         /*
          * end input fields
          */
-        
+        this.setTitle("Level builder");
         this.setSize(715,600);
         this.setResizable(false);
         this.setLayout(null);                        

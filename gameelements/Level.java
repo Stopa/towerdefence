@@ -14,13 +14,35 @@ public class Level {
     private int currentWaveIndex; //praeguse laine indeks massiivis
     private ArrayList<Tower> towerList; //tornide järjend
     private Grid[][] gridArray; //gridide kahemõõtmeline massiiv
-    
-    public Level(String filename) {
+    private int money;
+    private int totalMoneyPerTurn;
+
+	public Level(String filename) {
         this.towerList = new ArrayList<Tower>(); 
         this.currentWaveIndex = 0; 
-        this.loadLevel(filename); //laeb leveli sisse failist
+        this.loadLevel(filename); //laeb leveli sisse failist;
+        this.money = Configuration.STARTING_MONEY;
     }         
     
+    public void addMoney(int money) {
+    	this.money += money;
+    }
+    
+    public void removeMoney(int money) {
+    	this.money += money;
+    }
+    
+    public int getMoney() {
+    	return this.money;
+    }
+    // Kas nii ?
+    private void setTotalMoneyperTurn() {
+		for (int i=0;i<gridArray.length;i++) {
+			for (int j=0;j<gridArray.length;j++) {
+				this.totalMoneyPerTurn += gridArray[i][j].getGridType().getMoneyPerTurn();
+			}
+		}
+	}
             
     /**
      * Liigutame järgmise laine peale indeksi. 
@@ -119,7 +141,7 @@ public class Level {
         		ptr += 2;
         		Grid.GridType gt = Grid.GridType.getById(Integer.parseInt(scontent.substring(ptr, ptr+2)));
         		ptr += 2;
-        		Grid gd = new Grid(tx,ty,gt,this);
+        		Grid gd = new Grid(tx,ty,gt, null);
         		tmpGridArray[tx][ty] = gd;
         	}
         }    
@@ -134,7 +156,7 @@ public class Level {
         }        
                 
         //lisame linked gridid nüüd igale gridile.. 
-        //TODO - FAAS 1 - VAADATA ÜLE JA TESTIDA!!!
+        //TODO - FAAS 1 - VAADATA �?LE JA TESTIDA!!!
         for (int i = 0; i < levelWidth; i++) {
             for (int j = 0; j < levelHeight; j++) {
                 ArrayList<Grid> currentLinkedGrids = new ArrayList<Grid>();

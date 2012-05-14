@@ -113,23 +113,36 @@ public class Grid {
     
 public enum GridType {
     
-    PATH(Color.GRAY, 0,02), //tee, mida mööda kollid käivad
-    FOREST(Color.BLACK, 0,03), //mets, kuhu torni paigutada ei saa
-    GRASS(Color.GREEN, 0,01), //muru - saab torni paigutada
-    VILLAGE(Color.BLUE, Configuration.GRID_VILLAGE_MAXHEALTH,04), //küla - 
-    CASTLE(Color.RED, Configuration.GRID_CASTLE_MAXHEALTH,05); //"loss" - kollide lõppeesmärk
+    PATH(Color.GRAY, 0,02, 0), //tee, mida mööda kollid käivad
+    FOREST(Color.BLACK, 0,03, 0), //mets, kuhu torni paigutada ei saa
+    GRASS(Color.GREEN, 0,01, 0), //muru - saab torni paigutada
+    VILLAGE(Color.BLUE, Configuration.GRID_VILLAGE_MAXHEALTH,04, Configuration.VILLAGE_MONEYPERWAVE), //küla - 
+    CASTLE(Color.RED, Configuration.GRID_CASTLE_MAXHEALTH,05, Configuration.CASTLE_MONEYPERWAVE); //"loss" - kollide lõppeesmärk
         
     private final Color gridColor; //TODO - hiljem eemaldada..? 
     private final int maxHealth; //seda tüüpi gridide max "elu", mida kollid hävitavad
     private int id; // ID - levelite laadimiseks etc
+    private int moneyperturn;
+    private boolean burned;
         
-    GridType(Color gridColor, int maxHealth, int id) {
+    GridType(Color gridColor, int maxHealth, int id, int moneyPerTurn) {
         this.gridColor = gridColor; 
         this.maxHealth = maxHealth; 
         this.id = id;
+        this.moneyperturn = moneyPerTurn;
+        this.burned = false;
     }
     
-    /**
+    public boolean isBurned() {
+		return this.burned;
+	}
+    
+    public void burn() {
+    	this.burned = true;
+    	// TODO
+    }
+
+	/**
      * Tagastab selle grid tüübi max elu. 
      * @return 
      */
@@ -150,12 +163,20 @@ public enum GridType {
     	}
     	return result;
     }
+    
+    public int getMoneyPerTurn() {
+    	if (!this.burned) {
+    		return moneyperturn;
+    	} else {
+    		return 0;
+    	}
+    }
 
 }    
  
 }
 
-//TODO - FAAS 1 - GRIDTYPE ÜMBER TEHA:
+//TODO - FAAS 1 - GRIDTYPE �?MBER TEHA:
 //uus boolean meetod: isPassable()
 //path tagastab alati true
 //village/castle tagastavad true siis, kui nad on hävitatud (isBurned() == true) vms

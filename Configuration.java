@@ -64,7 +64,10 @@ public final class Configuration {
     public static final int MICROTURNS = 10; 
     public static final int MICROTURN_INTERVAL = 10; 
     
-    
+    //Money
+    public static final int STARTING_MONEY = 1000;
+    public static final int CASTLE_MONEYPERWAVE = 300;
+    public static final int VILLAGE_MONEYPERWAVE = 100;
     
     
 
