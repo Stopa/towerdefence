@@ -118,6 +118,7 @@ public class LevelPanel extends JPanel {
             }
             microturn();
             repaint(); 
+            //System.out.println("asd");
         }
     }
 

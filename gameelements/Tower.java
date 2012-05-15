@@ -3,9 +3,7 @@ package towerdefence.gameelements;
 import towerdefence.Configuration; 
 import java.util.ArrayList; 
 
-//TODO - FAAS 1 - ära unusta torni ja enemyt hävitades eemaldada ka gridilt!!!
-
-//TODO - kuidas määratakse see, kas Tower saab tulistada?
+//TODO - FAAS 2 - torni eemaldamine.. 
 
 public class Tower {
     
@@ -13,8 +11,7 @@ public class Tower {
     private int turnsToFire; 
     private final TowerType towerType; 
     private Grid grid; 
-    //TODO - FAAS 1 - ei ole list, vaid set?
-    //TODO - FAAS 1 - panna mingisse sellisesse järjekorda, et kui enemyt otsitakse,
+    //TODO - FAAS 2 - panna mingisse sellisesse järjekorda, et kui enemyt otsitakse,
     //siis kõige kaugemal olev enemy võetakse eelisjärjekorras? 
     
     private ArrayList<Grid> gridsList; //hoiab kõiki liste, mis on gridis
@@ -25,16 +22,18 @@ public class Tower {
         this.level = 1; 
         this.turnsToFire = 0; 
         this.towerType = towerType;
-        this.gridsList = getGridsList(this); 
+        setGridsList(); 
     }
+    
     
     public TowerType getTowerType() {
         return this.towerType;
     }
     
-    public static ArrayList<Grid> getGridsList(Tower tower) {
-        //TODO - FAAS 1
-        return null;
+    public void setGridsList() {
+        
+        this.gridsList = new ArrayList<Grid>(); 
+        
     }
     
     public boolean canFire() {
@@ -45,8 +44,7 @@ public class Tower {
         
         for (Grid targetGrid : gridsList) {
             if (!targetGrid.getEnemyList().isEmpty()) {
-                //TODO - mõelda, miks ma castima pean? 
-                return (Enemy)targetGrid.getEnemyList().get(0);
+                return targetGrid.getEnemyList().get(0);
             }
         }
         return null;         

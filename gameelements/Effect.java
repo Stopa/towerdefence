@@ -39,8 +39,7 @@ public class Effect {
     }
     
     /**
-     * Kutsutakse välja iga efekti jaoks iga turni lõpus. 
-     * 
+     * Kutsutakse välja iga efekti jaoks iga turni lõpus.
      * Handlib efekti poolt tekitatava kahju jne, juhul kui see turn toimib. 
      */
     public void process() {

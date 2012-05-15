@@ -10,11 +10,12 @@ public class LevelController {
     private Level level; 
     private WaveController waveController;    
     
-    public LevelController(GameWindow gameWindow, Level level) {
-        this.gameWindow = gameWindow;
-        this.level = level;
+    public LevelController(GameWindow gameWindow) {
+        this.gameWindow = gameWindow;       
+        this.level = gameWindow.getLevel(); 
         this.waveController = null; 
-        this.startBuildingPhase();
+        //this.startBuildingPhase();
+        //this.startCombatPhase();
     }
                     
     //kutsutakse välja wavecontrolleri poolt iga wave lõpus

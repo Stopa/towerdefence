@@ -1,7 +1,6 @@
 package towerdefence.gameelements;
 
 import java.util.ArrayList; 
-import java.awt.Color; 
 import towerdefence.Configuration;
 
 public class Grid {
@@ -24,6 +23,14 @@ public class Grid {
         this.linkedGrids = new ArrayList<Grid>(); 
         this.currentHealth = gridType.getMaxHealth();
         this.level = level; 
+    }
+    
+    public int getHealth() {
+        return this.currentHealth;
+    }
+    
+    public void damage(int damage) {
+        this.currentHealth -= damage; 
     }
     
     public Level getLevel() {
@@ -83,7 +90,7 @@ public class Grid {
      * @return 
      */
 
-    public ArrayList getEnemyList() {
+    public ArrayList<Enemy> getEnemyList() {
         return this.enemyList;
     }
     
@@ -111,36 +118,74 @@ public class Grid {
         return this.gridType;
     }
     
-public enum GridType {
-    
-    PATH(Color.GRAY, 0,02, 0), //tee, mida mööda kollid käivad
-    FOREST(Color.BLACK, 0,03, 0), //mets, kuhu torni paigutada ei saa
-    GRASS(Color.GREEN, 0,01, 0), //muru - saab torni paigutada
-    VILLAGE(Color.BLUE, Configuration.GRID_VILLAGE_MAXHEALTH,04, Configuration.VILLAGE_MONEYPERWAVE), //küla - 
-    CASTLE(Color.RED, Configuration.GRID_CASTLE_MAXHEALTH,05, Configuration.CASTLE_MONEYPERWAVE); //"loss" - kollide lõppeesmärk
-        
-    private final Color gridColor; //TODO - hiljem eemaldada..? 
-    private final int maxHealth; //seda tüüpi gridide max "elu", mida kollid hävitavad
-    private int id; // ID - levelite laadimiseks etc
-    private int moneyperturn;
-    private boolean burned;
-        
-    GridType(Color gridColor, int maxHealth, int id, int moneyPerTurn) {
-        this.gridColor = gridColor; 
-        this.maxHealth = maxHealth; 
-        this.id = id;
-        this.moneyperturn = moneyPerTurn;
-        this.burned = false;
-    }
-    
     public boolean isBurned() {
-		return this.burned;
+		return (this.gridType == GridType.BURNED_CASTLE ||
+                        this.gridType == GridType.BURNED_VILLAGE);
 	}
     
     public void burn() {
-    	this.burned = true;
-    	// TODO
+        if (this.gridType == GridType.CASTLE) {
+            this.level.setTotalMoneyPerTurn(
+                    this.level.getTotalMoneyPerTurn() - 
+                    GridType.CASTLE.getMoneyPerTurn());
+            this.gridType = GridType.BURNED_CASTLE;            
+        }
+        else if (this.gridType == GridType.VILLAGE) {
+            this.level.setTotalMoneyPerTurn(
+                    this.level.getTotalMoneyPerTurn() - 
+                    GridType.VILLAGE.getMoneyPerTurn());
+            this.gridType = GridType.BURNED_VILLAGE;            
+        }
+        else throw new AssertionError(); //vale gridtype.. 
+    }    
+    
+public enum GridType {
+    
+    PATH(0, 
+         02, 
+         0,
+         true), //tee, mida mööda kollid käivad
+    FOREST(0, 
+           03, 
+           0,
+           false), //mets, kuhu torni paigutada ei saa
+    GRASS(0, 
+          01, 
+          0,
+          false), //muru - saab torni paigutada
+    VILLAGE(Configuration.GRID_VILLAGE_MAXHEALTH,
+            04, 
+            Configuration.VILLAGE_MONEYPERWAVE,
+            false), //küla - 
+    BURNED_VILLAGE(0,
+                  06,
+                   0,
+                   true),
+    CASTLE(Configuration.GRID_CASTLE_MAXHEALTH,
+           05, 
+           Configuration.CASTLE_MONEYPERWAVE,
+           false), //"loss" - kollide lõppeesmärk
+    BURNED_CASTLE(0,
+                  07,
+                  0,
+                  true);
+
+    private final int maxHealth; //seda tüüpi gridide max "elu", mida kollid hävitavad
+    private int id; // ID - levelite laadimiseks etc
+    private int moneyperturn;
+    private boolean passable; 
+        
+    GridType(int maxHealth, int id, int moneyPerTurn, boolean passable) {
+        this.maxHealth = maxHealth; 
+        this.id = id;
+        this.moneyperturn = moneyPerTurn;
+        this.passable = passable;
     }
+    
+    public boolean isPassable() {
+        return this.passable;
+    }
+    
 
 	/**
      * Tagastab selle grid tüübi max elu. 
@@ -165,19 +210,9 @@ public enum GridType {
     }
     
     public int getMoneyPerTurn() {
-    	if (!this.burned) {
-    		return moneyperturn;
-    	} else {
-    		return 0;
-    	}
+        return this.moneyperturn;
     }
 
 }    
  
 }
-
-//TODO - FAAS 1 - GRIDTYPE �?MBER TEHA:
-//uus boolean meetod: isPassable()
-//path tagastab alati true
-//village/castle tagastavad true siis, kui nad on hävitatud (isBurned() == true) vms
-//sama panna ka kollide liikumist arvutavatesse meetoditesse jne! praegu kontrollitakse pathi..

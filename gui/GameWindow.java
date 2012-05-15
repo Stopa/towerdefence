@@ -38,6 +38,7 @@ public class GameWindow extends JFrame {
         
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
+        this.setTitle(level.getName());
         this.setVisible(true); 
     }
     
@@ -50,7 +51,7 @@ public class GameWindow extends JFrame {
     //joonistab uue levelpanel fraami (repaint kutsudes)
     //samuti uuendab kulda, mana, jne
     public void update() {
-        
+        levelPanel.draw();
     }
     
     

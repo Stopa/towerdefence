@@ -13,11 +13,8 @@ public class Enemy {
     private final int damage; 
     private Grid grid; //grid, millel koll asub
     private final ArrayList<Grid> movePath; //määrab kolli liikumisteekonna selle turni jooksul
-    //TODO - FAAS 1 - mõelda, kas LinkedList poleks parem? 
-    
-    //TODO - FAAS 1 - mõtle, kas seda ikka läheb vaja..? 
-    private int xcoord; //kolli xcoord joonistatud ekraanil
-    private int ycoord; //kolli ycoord joonistatud ekraanil
+    private ArrayList<int[]> coordsList; //kooli koordinaadid SELLE turni jooksul
+    private int currentCoordsIndex; 
     
     private final String type;
     private Grid previousGrid; 
@@ -29,11 +26,43 @@ public class Enemy {
         this.damage = damage; 
         this.type = type; 
         this.active = true; 
-        this.movePath = new ArrayList<Grid>();
+        this.movePath = new ArrayList<Grid>();        
     }
     
     public void micromove() {
-        //TODO!!!!!!!!
+        this.currentCoordsIndex++; 
+    }
+    
+    private void setCoordsList() {
+        this.currentCoordsIndex = 0;                
+        
+        coordsList = new ArrayList<int[]>(); 
+        
+        int startx = grid.getX() * 30; //TODO - panna confi..
+        int starty = grid.getY() * 30; //TODO - panna confi..
+        
+        int endx = movePath.get(movePath.size()-1).getX() * 30; //TODO - panna confi..
+        int endy = movePath.get(movePath.size()-1).getY() * 30; //TODO - panna confi
+        
+        System.out.println(
+                movePath.size() + " " + startx + " " + starty + " " + endx + " " + endy);        
+        
+        int distx = endx - startx; //TODO - MIKS KURAT SEDA SIIA VAJA ON?? 
+        int disty = endy - starty;
+        
+        int stepx = (int)distx / Configuration.MICROTURNS;
+        int stepy = (int)disty / Configuration.MICROTURNS;
+        
+        //lisame kõik positsioonid, kuhu kuul teekonnal satub igal microturnil
+        for (int i = 1; i <= Configuration.MICROTURNS; i++) {
+            coordsList.add(new int[]{startx + (i * stepx), 
+                                     starty + (i * stepy)});
+            /*
+            System.out.println(startx + (i * stepx));
+            System.out.println(starty + (i * stepy));
+             * 
+             */
+        }
     }
     
     //TODO - FAAS 1 - kutsutakse välja iga turni alguses
@@ -47,29 +76,54 @@ public class Enemy {
         
         Random rnd = new Random();
         
-        int coords[] = {1,1,1,-1,-1,1,-1,-1};
+        int coords[] = {1,0,-1,0,0,1,0,-1};
         
         for (int i = 0; i < this.speed; i++) {
             possibleGrids.clear(); 
             for (int j = 0; j < 4; j++) {
-                int x = coords[i * 2]; //0, 2, 4, 6
-                int y = coords[(i * 2) + 1]; //1, 3, 5, 7
-                Grid adjacentGrid = sourceGrid.getLevel().getGridAt(
+                int x = coords[j * 2]; //0, 2, 4, 6
+                int y = coords[(j * 2) + 1]; //1, 3, 5, 7
+                //TODO - pane confi..
+                Grid adjacentGrid = null;
+                try {
+                adjacentGrid = sourceGrid.getLevel().getGridAt(
                         sourceGrid.getX() + x, 
                         sourceGrid.getY() + y);
+                }
+                catch (ArrayIndexOutOfBoundsException e) {
+                    //do nothing
+                }
+                if (adjacentGrid == null) continue;
+                
+                System.out.print(sourceGrid.getX() + " ");
+                System.out.println(sourceGrid.getY());
+                System.out.print(adjacentGrid.getX() + " ");
+                System.out.println(adjacentGrid.getY());
+                 
+                 
                 if (adjacentGrid != tmpPreviousGrid &&
-                    adjacentGrid.getGridType() == Grid.GridType.PATH) {
+                    adjacentGrid.getGridType().isPassable()) {
                     possibleGrids.add(adjacentGrid);
                 }
             }
-            if (possibleGrids.isEmpty()) throw new AssertionError(); //tupik? ei tohiks juhtuda..
+            if (possibleGrids.isEmpty()) {
+                System.out.println(this.grid.getX());
+                System.out.println(this.grid.getY());
+                throw new AssertionError();
+            } //tupik? ei tohiks juhtuda..
             
             int randInt = rnd.nextInt(possibleGrids.size());
             Grid chosenGrid = possibleGrids.get(randInt);
             tmpPreviousGrid = sourceGrid; //praegune valitud on nüüd uus eelmine
             sourceGrid = chosenGrid; //nüüd on see "valitud ruut.."
             movePath.add(chosenGrid); //lisame movepathi
-        }        
+        }
+        this.previousGrid = tmpPreviousGrid; 
+        setCoordsList(); 
+    }
+    
+    public void setNewGrid() {
+        this.grid = movePath.get(movePath.size() - 1); 
     }
     
     /**
@@ -77,16 +131,7 @@ public class Enemy {
      * @return 
      */
     public int[] getCoords() {
-        return new int[] {xcoord, ycoord};
-    }
-    
-    //TODO - FAAS 1
-    /**
-     * Tsenderdab kolli praeguse ruudu suhtes ehk resetib x ja y koordinaadi.
-     * Muuhulgas kutsutakse välja iga turni algul. 
-     */
-    public void centerCoords() {
-        
+        return coordsList.get(currentCoordsIndex); 
     }
     
     /**

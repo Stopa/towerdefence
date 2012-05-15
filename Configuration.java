@@ -27,7 +27,7 @@ public final class Configuration {
     //ENEMIES
     //Cavalry
     public static final int ENEMY_CAVALRY_HEALTH = 10;
-    public static final int ENEMY_CAVALRY_SPEED = 4;
+    public static final int ENEMY_CAVALRY_SPEED = 5;
     public static final int ENEMY_CAVALRY_DAMAGE = 10;
     public static final String ENEMY_CAVALRY_TYPE = "cavalry";
     
@@ -62,7 +62,7 @@ public final class Configuration {
     public static final int LEVELPANEL_WIDTH = 600; 
     
     public static final int MICROTURNS = 10; 
-    public static final int MICROTURN_INTERVAL = 10; 
+    public static final int MICROTURN_INTERVAL = 100; 
     
     //Money
     public static final int STARTING_MONEY = 1000;

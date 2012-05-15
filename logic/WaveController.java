@@ -55,12 +55,12 @@ public class WaveController {
         
         //TODO - FAAS 2/3 - arvuta mana jne
         
-        
-       
-        //TODO - FAAS 1 - määrata kollide liikumine
-        for (Enemy enemy : wave.getEnemyList()) {
+               
+        //lisame uusi kolle platsile.. 
+        if (wave.hasInactiveEnemies()) {
+            wave.addNewEnemy();
             
-        }
+        }        
         
         //TODO - FAAS 1 - määra tulistamised ja asjad
         //checkid, et kas saab tulistada ja kas vastane on ranges
@@ -70,7 +70,7 @@ public class WaveController {
         }
         
         
-        //TODO - FAAS 1 - tee kollide liikumine
+        //arvutame kollide liikumise..
         for (Enemy enemy : wave.getEnemyList()) {
             enemy.calculateMovePath();
         }                        
@@ -85,7 +85,11 @@ public class WaveController {
            if (enemy.getCurrentHealth() <= 0) {
                wave.removeEnemy(enemy);
            }
-        }        
+        }               
+        
+        for (Enemy enemy : wave.getEnemyList()) {
+            enemy.setNewGrid();
+        }
         
         levelController.getGameWindow().update();
     }
