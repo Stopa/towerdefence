@@ -1,8 +1,6 @@
 package towerdefence.gui;
 
 import java.awt.*; 
-import java.awt.event.*; 
-import java.awt.image.*; 
 import javax.swing.*;
 import java.io.*; 
 import javax.imageio.*; 
@@ -34,16 +32,13 @@ public class LevelPanel extends JPanel {
     private EnumMap<GridType,Image> gridImageMap; 
     private EnumMap<TowerType,Image> towerImageMap;
     private HashMap<String, Image> enemyImageMap; 
-    
-    
-    private boolean drawingActive; 
+
     int i = 0;     
     
     private GameWindow gameWindow;         
     
     LevelPanel (GameWindow gameWindow) {
-        this.gameWindow = gameWindow; 
-        this.drawingActive = false;   
+        this.gameWindow = gameWindow;  
         
         initImages();
         initGridImageMap();
@@ -110,12 +105,24 @@ public class LevelPanel extends JPanel {
     public void draw() {
         
         for (int i = 0; i < Configuration.MICROTURNS; i++) {
+            if (i != 0 && i!= Configuration.MICROTURNS - 1) {
             try {
                 Thread.sleep(Configuration.MICROTURN_INTERVAL);
             }
             catch (InterruptedException ie) {
                 throw new AssertionError(); //TODO - ???
             }
+            }
+            else {
+            try {
+                //TODO - teeb NATUKE paremaks hüplemise
+                //aga muuta ümber, eriti kui kõik funktsioonid on paigas!!
+                Thread.sleep(Configuration.MICROTURN_INTERVAL * 4 / 7);
+            }
+            catch (InterruptedException ie) {
+                throw new AssertionError(); //TODO - ???
+            }
+            }            
             microturn();
             repaint(); 
             //System.out.println("asd");

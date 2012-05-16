@@ -19,7 +19,10 @@ public class Enemy {
     private final String type;
     private Grid previousGrid; 
     
+    private boolean hittingBuilding;
+    
     public Enemy (int health, int speed, int damage, String type) {
+        this.hittingBuilding = false; 
         this.maxHealth = health; 
         this.currentHealth = maxHealth; 
         this.speed = speed;
@@ -30,6 +33,7 @@ public class Enemy {
     }
     
     public void micromove() {
+        if (this.hittingBuilding) return;
         this.currentCoordsIndex++; 
     }
     
@@ -38,37 +42,69 @@ public class Enemy {
         
         coordsList = new ArrayList<int[]>(); 
         
-        int startx = grid.getX() * 30; //TODO - panna confi..
-        int starty = grid.getY() * 30; //TODO - panna confi..
+        for (int grids = 0; grids < movePath.size()-1; grids++) {
         
-        int endx = movePath.get(movePath.size()-1).getX() * 30; //TODO - panna confi..
-        int endy = movePath.get(movePath.size()-1).getY() * 30; //TODO - panna confi
+            int startx = movePath.get(grids).getX() * 30; //TODO - panna confi..
+            int starty = movePath.get(grids).getY() * 30; //TODO - panna confi..
         
-        System.out.println(
-                movePath.size() + " " + startx + " " + starty + " " + endx + " " + endy);        
+            int endx = movePath.get(grids+1).getX() * 30; //TODO - panna confi..
+            int endy = movePath.get(grids+1).getY() * 30; //TODO - panna confi
         
-        int distx = endx - startx; //TODO - MIKS KURAT SEDA SIIA VAJA ON?? 
-        int disty = endy - starty;
+            int distx = endx - startx; 
+            int disty = endy - starty;
+            
+            int stepx = distx / (30 * this.speed / Configuration.MICROTURNS); //TODO - conf
+            int stepy = disty / (30 * this.speed / Configuration.MICROTURNS); //TODO - conf
         
-        int stepx = (int)distx / Configuration.MICROTURNS;
-        int stepy = (int)disty / Configuration.MICROTURNS;
-        
-        //lisame kõik positsioonid, kuhu kuul teekonnal satub igal microturnil
-        for (int i = 1; i <= Configuration.MICROTURNS; i++) {
-            coordsList.add(new int[]{startx + (i * stepx), 
-                                     starty + (i * stepy)});
-            /*
-            System.out.println(startx + (i * stepx));
-            System.out.println(starty + (i * stepy));
-             * 
-             */
+            //lisame kõik positsioonid, kuhu kuul teekonnal satub igal microturnil
+            for (int i = 1; i <= Configuration.MICROTURNS / this.speed; i++) {
+                coordsList.add(new int[]{startx + ((i+1) * stepx), 
+                                         starty + ((i+1) * stepy)});
+                
+            }
         }
+    }
+    
+    private boolean canMove() {
+        int coords[] = {1,0,-1,0,0,1,0,-1}; 
+        
+        for (int j = 0; j < 4; j++) {
+            int x = coords[j * 2]; //0, 2, 4, 6
+            int y = coords[(j * 2) + 1]; //1, 3, 5, 7
+            
+            Grid adjacentGrid = null;
+            try {
+            adjacentGrid = grid.getLevel().getGridAt(
+                        grid.getX() + x, 
+                        grid.getY() + y);
+            }
+            catch (ArrayIndexOutOfBoundsException e) {
+            //do nothing
+            }
+            if (adjacentGrid == null || adjacentGrid == previousGrid) continue;
+                                  
+            if (adjacentGrid.getGridType().isPassable()) {
+                return true;
+            } 
+            }
+        System.out.println("poop");        
+        return false;      
+    }
+    
+    public void hitBuilding() {
+        //TODO
     }
     
     //TODO - FAAS 1 - kutsutakse välja iga turni alguses
     //määrab ära movePathi selle turni jaoks
     public void calculateMovePath() {
+        if (!this.canMove()) {
+            this.hittingBuilding = true;
+            return;
+        }
+        this.hittingBuilding = false; 
         this.movePath.clear();
+        this.movePath.add(this.grid); //TODO - võta ära kui probleeme tekitab..?         
             
         Grid tmpPreviousGrid = this.previousGrid;
         Grid sourceGrid = this.grid; 
@@ -78,6 +114,7 @@ public class Enemy {
         
         int coords[] = {1,0,-1,0,0,1,0,-1};
         
+        setGrids:
         for (int i = 0; i < this.speed; i++) {
             possibleGrids.clear(); 
             for (int j = 0; j < 4; j++) {
@@ -94,23 +131,20 @@ public class Enemy {
                     //do nothing
                 }
                 if (adjacentGrid == null) continue;
-                
-                System.out.print(sourceGrid.getX() + " ");
-                System.out.println(sourceGrid.getY());
-                System.out.print(adjacentGrid.getX() + " ");
-                System.out.println(adjacentGrid.getY());
-                 
                  
                 if (adjacentGrid != tmpPreviousGrid &&
                     adjacentGrid.getGridType().isPassable()) {
                     possibleGrids.add(adjacentGrid);
                 }
             }
+
             if (possibleGrids.isEmpty()) {
-                System.out.println(this.grid.getX());
-                System.out.println(this.grid.getY());
-                throw new AssertionError();
-            } //tupik? ei tohiks juhtuda..
+                if (i == 0) { //linna ääres.. 
+                    System.out.println(this.canMove());
+                    throw new AssertionError(); 
+                }
+                else break setGrids; 
+            }
             
             int randInt = rnd.nextInt(possibleGrids.size());
             Grid chosenGrid = possibleGrids.get(randInt);
@@ -131,6 +165,8 @@ public class Enemy {
      * @return 
      */
     public int[] getCoords() {
+        if (currentCoordsIndex >= coordsList.size())
+            currentCoordsIndex = coordsList.size()-1; 
         return coordsList.get(currentCoordsIndex); 
     }
     

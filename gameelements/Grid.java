@@ -165,6 +165,7 @@ public enum GridType {
            05, 
            Configuration.CASTLE_MONEYPERWAVE,
            false), //"loss" - kollide lõppeesmärk
+    //TODO - võta true ära..
     BURNED_CASTLE(0,
                   07,
                   0,
