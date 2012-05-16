@@ -6,16 +6,16 @@ import javax.swing.*;
 
 import towerdefence.Configuration; 
 import towerdefence.gameelements.Level;
+import towerdefence.logic.LevelController;
 
 //TODO - implements listener, vastavad meetodid.. 
-public class GameWindow extends JFrame {
+public class GameWindow extends JFrame implements ActionListener {
     
     private LevelPanel levelPanel;     
-    private JButton turnButton; 
-    
-    private boolean buildingPhaseActive; 
-    
+    private JButton startCombatButton;    
+    private boolean buildingPhaseActive;     
     private Level level; 
+    private LevelController levelController;
     
     public GameWindow(Level level) {                
         
@@ -31,15 +31,37 @@ public class GameWindow extends JFrame {
                 Configuration.LEVELPANEL_POSY,
                 Configuration.LEVELPANEL_WIDTH,
                 Configuration.LEVELPANEL_HEIGHT);
-        this.add(levelPanel);                         
+        this.add(levelPanel);  
+        this.getContentPane().setBackground(Color.BLACK);
         
         
         this.buildingPhaseActive = false; //TODO? 
+        
+        startCombatButton = new JButton(Configuration.GAMEWINDOW_STARTCOMBATBUTTON_TEXT);
+        startCombatButton.setBounds(
+                Configuration.GAMEWINDOW_STARTCOMBATBUTTON_POSX,
+                Configuration.GAMEWINDOW_STARTCOMBATBUTTON_POSY,
+                Configuration.GAMEWINDOW_STARTCOMBATBUTTON_WIDTH,
+                Configuration.GAMEWINDOW_STARTCOMBATBUTTON_HEIGHT);
+        startCombatButton.setForeground(Color.RED);
+        startCombatButton.setBackground(Color.BLACK);
+        startCombatButton.setFocusable(false);
+        startCombatButton.addActionListener(this);
+        this.add(startCombatButton);
         
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setTitle(level.getName());
         this.setVisible(true); 
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        levelController.startCombatPhase();
+    }
+    
+    public void setLevelController(LevelController levelController) {
+        this.levelController = levelController;        
     }
     
     public Level getLevel() {
@@ -55,7 +77,9 @@ public class GameWindow extends JFrame {
     }
     
     
-    public void setBuildingPhase(boolean enabled) {
+    public void setBuildingPhase(boolean active) {        
+        this.buildingPhaseActive = active;
+        this.startCombatButton.setEnabled(active);
         //kui enabletakse, siis... levelPanelile mingi signaal?
         //kõik mingid ehitusnupud jälle enableda vms? või selleks listeneri lihtsalt
         //mingi check sisse panna?

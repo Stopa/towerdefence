@@ -32,6 +32,7 @@ public class LevelController {
         gameWindow.setBuildingPhase(false);
         waveController = new WaveController(level.getCurrentWave(), this); 
         waveController.start();         
+        
     }
     
     public GameWindow getGameWindow() {

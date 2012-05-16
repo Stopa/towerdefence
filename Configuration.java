@@ -54,6 +54,12 @@ public final class Configuration {
     //GameWindow
     public static final int GAMEWINDOW_HEIGHT = 800;
     public static final int GAMEWINDOW_WIDTH = 600; 
+    
+    public static final int GAMEWINDOW_STARTCOMBATBUTTON_HEIGHT = 30;
+    public static final int GAMEWINDOW_STARTCOMBATBUTTON_WIDTH = 100;
+    public static final int GAMEWINDOW_STARTCOMBATBUTTON_POSX = 10;
+    public static final int GAMEWINDOW_STARTCOMBATBUTTON_POSY = 610;
+    public static final String GAMEWINDOW_STARTCOMBATBUTTON_TEXT = "Combat";    
             
     //LevelPanel
     public static final int LEVELPANEL_POSX = 0;

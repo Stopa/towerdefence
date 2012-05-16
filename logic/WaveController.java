@@ -1,8 +1,6 @@
 package towerdefence.logic;
 
-import towerdefence.Configuration;
 import towerdefence.gameelements.*;
-import towerdefence.gui.*; 
 import java.util.ArrayList; 
 
 public class WaveController {
@@ -32,18 +30,15 @@ public class WaveController {
     
     public void start() {
         
-
-        //TODO - FAAS 1 - vastaste lisamine jne? 
-        //praegune mõte - kõik tulevad järjest mingisse ruutu, mis ei asu laual?
-        //ja kust järgmine ruut on mingi algusruut? 
-        //või.. mingi taoline lähenemine. kõik ei saa ju korraga tulla. 
-        
-        while(!waveOver) {                      
+        while(!waveOver) {  
+            if (wave.getLevel().isCastleBurned()) {
+                System.out.println("Game over!"); //TODO - tee vingemaks!
+                System.exit(1);
+            }
+                
             turn();         
-
             this.setWaveOver();
-        }
-        
+        }        
     }
     
     private void turn() {       

@@ -18,8 +18,10 @@ public class Level {
     private int totalMoneyPerTurn;
     private final String name; 
     private ArrayList<Grid> startingGrids; //leveli ääres olevat gridid, kust vastased alustada saavad
+    private boolean castleBurned;
 
 	public Level(String filename) {
+        this.castleBurned = false; 
         this.towerList = new ArrayList<Tower>(); 
         this.currentWaveIndex = 0; 
         this.name = filename; 
@@ -28,6 +30,14 @@ public class Level {
         this.money = Configuration.STARTING_MONEY;
         initTotalMoneyperTurn();
     }       
+        
+    public boolean isCastleBurned() {
+        return this.castleBurned;
+    }
+    
+    public void setCastleBurned() {
+        this.castleBurned = true; 
+    }
         
     public int getTotalMoneyPerTurn() {
         return this.totalMoneyPerTurn;

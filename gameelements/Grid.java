@@ -129,7 +129,8 @@ public class Grid {
             this.level.setTotalMoneyPerTurn(
                     this.level.getTotalMoneyPerTurn() - 
                     GridType.CASTLE.getMoneyPerTurn());
-            this.gridType = GridType.BURNED_CASTLE;            
+            this.gridType = GridType.BURNED_CASTLE;         
+            this.level.setCastleBurned();
         }
         else if (this.gridType == GridType.VILLAGE) {
             this.level.setTotalMoneyPerTurn(
