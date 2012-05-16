@@ -21,6 +21,8 @@ public class LevelPanel extends JPanel {
     private Image forestImage;
     private Image villageImage;
     private Image castleImage;
+    private Image burnedVillageImage;
+    private Image burnedCastleImage;    
     
     private Image arrowtowerImage;
     private Image cannontowerImage; 
@@ -52,7 +54,9 @@ public class LevelPanel extends JPanel {
             grassImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\grass.png"));
             forestImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\forest.png"));
             villageImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\village.png"));
+            burnedVillageImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\villageBurned.png"));
             castleImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\fort1.png"));
+            burnedCastleImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\fort1Burned.png"));
             
             arrowtowerImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\arrowtower.png"));
             cannontowerImage = ImageIO.read(new File("src\\towerdefence\\bitmapimages\\cannontower.png"));
@@ -73,7 +77,9 @@ public class LevelPanel extends JPanel {
         gridImageMap.put(GridType.GRASS, grassImage);                
         gridImageMap.put(GridType.FOREST, forestImage);
         gridImageMap.put(GridType.VILLAGE, villageImage);
-        gridImageMap.put(GridType.CASTLE, castleImage);                
+        gridImageMap.put(GridType.CASTLE, castleImage);           
+        gridImageMap.put(GridType.BURNED_VILLAGE, burnedVillageImage);
+        gridImageMap.put(GridType.BURNED_CASTLE, burnedCastleImage);         
     }
     
     private void initEnemyImageMap() {        

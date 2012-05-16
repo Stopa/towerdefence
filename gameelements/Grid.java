@@ -23,7 +23,7 @@ public class Grid {
         this.linkedGrids = new ArrayList<Grid>(); 
         this.currentHealth = gridType.getMaxHealth();
         this.level = level; 
-    }
+    }       
     
     public int getHealth() {
         return this.currentHealth;
@@ -31,6 +31,7 @@ public class Grid {
     
     public void damage(int damage) {
         this.currentHealth -= damage; 
+        if (this.currentHealth <= 0) this.burn();
     }
     
     public Level getLevel() {
@@ -136,7 +137,7 @@ public class Grid {
                     GridType.VILLAGE.getMoneyPerTurn());
             this.gridType = GridType.BURNED_VILLAGE;            
         }
-        else throw new AssertionError(); //vale gridtype.. 
+        //else throw new AssertionError(); //vale gridtype.. 
     }    
     
 public enum GridType {

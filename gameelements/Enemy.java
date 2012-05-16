@@ -20,6 +20,7 @@ public class Enemy {
     private Grid previousGrid; 
     
     private boolean hittingBuilding;
+    private Grid buildingGrid;
     
     public Enemy (int health, int speed, int damage, String type) {
         this.hittingBuilding = false; 
@@ -82,22 +83,25 @@ public class Enemy {
             //do nothing
             }
             if (adjacentGrid == null || adjacentGrid == previousGrid) continue;
+            if (adjacentGrid.getHealth() > 0) this.buildingGrid = adjacentGrid; 
                                   
             if (adjacentGrid.getGridType().isPassable()) {
                 return true;
             } 
-            }
-        System.out.println("poop");        
+            }     
         return false;      
     }
     
     public void hitBuilding() {
-        //TODO
+        if (!this.hittingBuilding) return;
+        buildingGrid.damage(damage);                        
     }
     
     //TODO - FAAS 1 - kutsutakse välja iga turni alguses
     //määrab ära movePathi selle turni jaoks
     public void calculateMovePath() {
+        this.buildingGrid = null;
+        
         if (!this.canMove()) {
             this.hittingBuilding = true;
             return;

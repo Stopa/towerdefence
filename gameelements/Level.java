@@ -127,7 +127,6 @@ public class Level {
      * @return 
      */
     public Grid getGridAt(int x, int y) {
-        if (x < 0 || y < 0) System.out.println("debug");
         return gridArray[x][y];
     }
     

@@ -75,6 +75,10 @@ public class WaveController {
             enemy.calculateMovePath();
         }                        
         
+        for (Enemy enemy : wave.getEnemyList()) {
+            enemy.hitBuilding();
+        }
+        
         //protsessime efektid
         for (Effect effect : effectList) {
             effect.process();
