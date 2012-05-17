@@ -43,24 +43,48 @@ public class Enemy {
         
         coordsList = new ArrayList<int[]>(); 
         
+        
         for (int grids = 0; grids < movePath.size()-1; grids++) {
         
+            //alguspunktid
             int startx = movePath.get(grids).getX() * 30; //TODO - panna confi..
             int starty = movePath.get(grids).getY() * 30; //TODO - panna confi..
         
+            //lõpppunktid
             int endx = movePath.get(grids+1).getX() * 30; //TODO - panna confi..
             int endy = movePath.get(grids+1).getY() * 30; //TODO - panna confi
         
+            //kogu läbitav distants
             int distx = endx - startx; 
             int disty = endy - starty;
             
-            int stepx = distx / (30 * this.speed / Configuration.MICROTURNS); //TODO - conf
-            int stepy = disty / (30 * this.speed / Configuration.MICROTURNS); //TODO - conf
+            //kui kiiresti läbib vahema.. mida kiirem, seda suurem peab väärtus tulema            
+            
+            /*
+             * vahemaa / 
+             */
+            
+            /*
+             * nt kui on vaja läbi 10 meetrit
+             * ja kiirus on 10
+             * peab läbima ühe korraga
+             * kui kiirus on 5 peab läbima kahe korraga
+             * 
+             * vahemaa / kiirus
+             */
+            
+            
+            int stepx = distx * this.speed / Configuration.MICROTURNS; //TODO - conf            
+            int stepy = disty * this.speed / Configuration.MICROTURNS; //TODO - conf          
         
             //lisame kõik positsioonid, kuhu kuul teekonnal satub igal microturnil
-            for (int i = 1; i <= Configuration.MICROTURNS / this.speed; i++) {
-                coordsList.add(new int[]{startx + ((i+1) * stepx), 
-                                         starty + ((i+1) * stepy)});
+            
+            //kui kiirus 5, siis järelikult tuleb lisada 2
+            //kui kiirus 2, siis järelikult tuleb lisada 5
+            
+            for (int i = 1; i < (Configuration.MICROTURNS / this.speed) + 1; i++) {
+                coordsList.add(new int[]{startx + (i * stepx), 
+                                         starty + (i * stepy)});
                 
             }
         }

@@ -3,7 +3,7 @@ package towerdefence.logic;
 import towerdefence.gameelements.*;
 import java.util.ArrayList; 
 
-public class WaveController {
+public class WaveController implements Runnable {
     
     private Wave wave; 
     private LevelController levelController; 
@@ -28,17 +28,18 @@ public class WaveController {
 
     }
     
-    public void start() {
+    @Override
+    public void run() {
+        this.waveOver = false;
+        levelController.getLevel().setCastleBurned(false);
         
-        while(!waveOver) {  
-            if (wave.getLevel().isCastleBurned()) {
-                System.out.println("Game over!"); //TODO - tee vingemaks!
-                System.exit(1);
-            }
-                
+        while(!waveOver) {                  
             turn();         
             this.setWaveOver();
-        }        
+        } 
+        System.out.println("Game over!"); //TODO - tee vingemaks!                
+        levelController.startBuildingPhase();    
+
     }
     
     private void turn() {       
@@ -96,6 +97,7 @@ public class WaveController {
 
     
     private void setWaveOver() {
+        waveOver = wave.getLevel().isCastleBurned();
         //TODO - arvuta kas wave on läbi.. 
         
         //siin vaata seda ka kas effectslist on tühi vms..? 

@@ -15,6 +15,6 @@ public class TowerDefence {
         LevelController lc = new LevelController(gw);
         
         gw.setLevelController(lc);
-        lc.startCombatPhase();
+        lc.startBuildingPhase();
     }
 }

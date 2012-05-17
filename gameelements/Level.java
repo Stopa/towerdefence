@@ -23,7 +23,7 @@ public class Level {
 	public Level(String filename) {
         this.castleBurned = false; 
         this.towerList = new ArrayList<Tower>(); 
-        this.currentWaveIndex = 0; 
+        this.currentWaveIndex = -1; 
         this.name = filename; 
         this.loadLevel(filename); //laeb leveli sisse failist;   
         this.setStartingGrids();
@@ -35,8 +35,8 @@ public class Level {
         return this.castleBurned;
     }
     
-    public void setCastleBurned() {
-        this.castleBurned = true; 
+    public void setCastleBurned(boolean value) {
+        this.castleBurned = value; 
     }
         
     public int getTotalMoneyPerTurn() {
@@ -146,7 +146,11 @@ public class Level {
      */
 
     public Wave getCurrentWave() {
-        return waveArray[currentWaveIndex]; 
+        return waveArray[Math.max(currentWaveIndex,0)];
+    }
+    
+    public void setNextWave() {
+        currentWaveIndex++; 
     }
     
     /**
@@ -159,6 +163,7 @@ public class Level {
         tower.setGrid(grid);
         grid.setTower(tower);        
     }
+    
         
     /**
      * Eemaldame torni. 

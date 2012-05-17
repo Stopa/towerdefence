@@ -25,6 +25,11 @@ public class Grid {
         this.level = level; 
     }       
     
+
+    public void setGridType(GridType type) {
+        this.gridType = type;
+    }    
+    
     public int getHealth() {
         return this.currentHealth;
     }
@@ -130,7 +135,7 @@ public class Grid {
                     this.level.getTotalMoneyPerTurn() - 
                     GridType.CASTLE.getMoneyPerTurn());
             this.gridType = GridType.BURNED_CASTLE;         
-            this.level.setCastleBurned();
+            this.level.setCastleBurned(true);
         }
         else if (this.gridType == GridType.VILLAGE) {
             this.level.setTotalMoneyPerTurn(
