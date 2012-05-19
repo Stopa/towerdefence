@@ -12,7 +12,7 @@ public final class Configuration {
     public static final int TOWER_ARROWTOWER_ATTACKLEVELCOEFFICIENT = 1; 
     public static final int TOWER_ARROWTOWER_BASESPEED = 1; 
     public static final int TOWER_ARROWTOWER_SPEEDLEVELCOEFFICIENT = 1; 
-    public static final int TOWER_ARROWTOWER_BASERANGE = 1;
+    public static final int TOWER_ARROWTOWER_BASERANGE = 2;
     public static final int TOWER_ARROWTOWER_RANGELEVELCOEFFICIENT = 1;
     public static final String TOWER_ARROWTOWER_TYPE = "arrow";
     
@@ -21,7 +21,7 @@ public final class Configuration {
     public static final int TOWER_CANNONTOWER_ATTACKLEVELCOEFFICIENT = 1; 
     public static final int TOWER_CANNONTOWER_BASESPEED = 1; 
     public static final int TOWER_CANNONTOWER_SPEEDLEVELCOEFFICIENT = 1; 
-    public static final int TOWER_CANNONTOWER_BASERANGE = 1;
+    public static final int TOWER_CANNONTOWER_BASERANGE = 4;
     public static final int TOWER_CANNONTOWER_RANGELEVELCOEFFICIENT = 1;     
     public static final String TOWER_CANNONTOWER_TYPE = "cannon";
     
@@ -29,13 +29,13 @@ public final class Configuration {
     //ENEMIES
     //Cavalry
     public static final int ENEMY_CAVALRY_HEALTH = 10;
-    public static final int ENEMY_CAVALRY_SPEED = 5;
+    public static final int ENEMY_CAVALRY_SPEED = 2;
     public static final int ENEMY_CAVALRY_DAMAGE = 10;
     public static final String ENEMY_CAVALRY_TYPE = "cavalry";
     
     //Infantry
-    public static final int ENEMY_INFANTRY_HEALTH = 5;
-    public static final int ENEMY_INFANTRY_SPEED = 2;
+    public static final int ENEMY_INFANTRY_HEALTH = 10;
+    public static final int ENEMY_INFANTRY_SPEED = 1;
     public static final int ENEMY_INFANTRY_DAMAGE = 5;
     public static final String ENEMY_INFANTRY_TYPE = "infantry";
         

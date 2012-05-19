@@ -185,7 +185,9 @@ public class Enemy {
     }
     
     public void setNewGrid() {
+        this.grid.removeEnemy(this);
         this.grid = movePath.get(movePath.size() - 1); 
+        this.grid.addEnemy(this);
     }
     
     /**

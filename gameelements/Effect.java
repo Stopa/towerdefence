@@ -126,7 +126,7 @@ public class Effect {
      */
     public boolean isElapsed() {
         if (this.elapsedTime > this.totalTime) throw new AssertionError(); //ei tohiks juhtuda..
-        return this.elapsedTime >= this.totalTime; 
+        return this.elapsedTime == this.totalTime; 
     }
     
     /**

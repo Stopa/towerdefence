@@ -31,13 +31,38 @@ public class Tower {
         return this.towerType;
     }
     
-    public void setGridsList() {
-        
+    public final void setGridsList() {        
         this.gridsList = new ArrayList<Grid>(); 
-        
+        addLinkedGrid(towerType.getRange(level), grid, gridsList);        
     }
     
-    public boolean canFire() {
+    public static void addLinkedGrid(int range, Grid grid, ArrayList<Grid> gridsList) {
+        if (range <= 0) return;
+        else if (!gridsList.contains(grid)) {
+            gridsList.add(grid);
+        }
+        int x = grid.getX();
+        int y = grid.getY();
+        
+        int coords[] = {1,0,-1,0,0,1,0,-1}; 
+        
+        for (int j = 0; j < 4; j++) {
+            int offx = coords[j * 2]; //0, 2, 4, 6
+            int offy = coords[(j * 2) + 1]; //1, 3, 5, 7
+        
+            Grid newGrid = null;
+            try {
+            newGrid = grid.getLevel().getGridAt(x+offx, y+offy);
+            }
+            catch (ArrayIndexOutOfBoundsException aioobe) {
+                //do nothing
+            }
+            if (newGrid != null) addLinkedGrid(range-1, newGrid, gridsList);
+        }
+    }
+        
+    
+    public boolean canFire() {        
         return turnsToFire <= 0;
     }
     
@@ -54,10 +79,17 @@ public class Tower {
     public void fire() {
         if (!canFire()) return;
         Enemy target = getTargetEnemy();
-        if (target == null) return; 
         
+        if (target == null) return; 
+
         if (this.towerType == TowerType.ArrowTower) {
-            //TODO
+            Effect effect = new Effect(
+                    1, 
+                    TowerType.ArrowTower.getAttack(level),
+                    Effect.Target.SINGLE,
+                    Effect.Type.DAMAGE);
+            effect.setTargetEnemy(target);
+            grid.getLevel().getCurrentWave().addEffect(effect);            
         }
         
         else if (this.towerType == TowerType.CannonTower) {
@@ -90,7 +122,7 @@ public class Tower {
         else throw new AssertionError(); 
         return tower; 
     }
-    
+   
     
 //TOWERTYPE ENUM    
 public enum TowerType {

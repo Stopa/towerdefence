@@ -8,25 +8,16 @@ public class WaveController implements Runnable {
     private Wave wave; 
     private LevelController levelController; 
     private boolean waveOver;
-    private final ArrayList<Effect> effectList;
     
     public WaveController(Wave wave, LevelController levelController) {
         
         this.wave = wave;
-        this.levelController = levelController;
-        this.effectList = new ArrayList<Effect>();
+        this.levelController = levelController;        
         
         waveOver = false;                         
     }
     
-    public void addEffect(Effect effect) {
-        this.effectList.add(effect);
-    }
-    
-    public void removeEffect(Effect effect) {
-        this.effectList.remove(effect);
 
-    }
     
     @Override
     public void run() {
@@ -69,29 +60,45 @@ public class WaveController implements Runnable {
         //arvutame kollide liikumise..
         for (Enemy enemy : wave.getEnemyList()) {
             enemy.calculateMovePath();
-        }                        
+        }                                
+        
+        //protsessime efektid
+        
+        levelController.getGameWindow().update();
         
         for (Enemy enemy : wave.getEnemyList()) {
             enemy.hitBuilding();
         }
         
         //protsessime efektid
-        for (Effect effect : effectList) {
+        for (Effect effect : wave.getEffectList()) {
             effect.process();
-        }        
-        
-        //eemaldame surnud vastased
-        for (Enemy enemy : wave.getEnemyList()) {
-           if (enemy.getCurrentHealth() <= 0) {
-               wave.removeEnemy(enemy);
-           }
-        }               
+        }            
         
         for (Enemy enemy : wave.getEnemyList()) {
             enemy.setNewGrid();
+        }        
+        
+        ArrayList<Effect> tmpEffectList = new ArrayList<Effect>();        
+        for (Effect effect : wave.getEffectList()) {
+            if (effect.isElapsed()) 
+                tmpEffectList.add(effect);
+        }                
+        
+        for (Effect effect : tmpEffectList) {
+            wave.removeEffect(effect);
+        }                
+                
+        //eemaldame surnud vastased        
+        ArrayList<Enemy> tmpList = new ArrayList<Enemy>();
+        for (Enemy enemy : wave.getEnemyList()) {
+            if (enemy.getCurrentHealth() <= 0)
+                tmpList.add(enemy);
         }
         
-        levelController.getGameWindow().update();
+        for (Enemy enemy : tmpList) {
+               wave.removeEnemy(enemy);
+        }         
     }
     
 

@@ -19,8 +19,6 @@ public class GameWindow extends JFrame implements ActionListener {
     
     private JLabel goldLabel; //TODO - hoiab kulda..
     
-    private JButton buildButton; //TODO - sellele vajutades ehitatakse torn
-    
     private JButton arrowTowerButton; //TODO - sellele vajutades ehitatakse arrowTower
     private JButton cannonTowerButton; //TODO - sellel vajutades ehitatakse cannonTower
     private boolean arrowTowerSelected; //TODO - kas arrow tower on selectitud
@@ -168,11 +166,7 @@ public class GameWindow extends JFrame implements ActionListener {
     private void drawGoldLabel() {
         goldLabel.setText("Kulda: " + level.getMoney());
     }
-    
-    private void drawBuildButton() {
-        buildButton.setEnabled(arrowTowerSelected || cannonTowerSelected);
-    }
-    
+
     private void drawArrowTowerButton() {
         if (arrowTowerSelected)
             arrowTowerButton.setBorder(BorderFactory.createLineBorder(Color.RED,5));       

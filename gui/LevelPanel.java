@@ -179,11 +179,16 @@ public class LevelPanel extends JPanel {
         //joonistame vastased
         for (int i = 0; i < gameWindow.getLevel().getCurrentWave().getEnemyList().size(); i++) {
             for (Enemy enemy : gameWindow.getLevel().getCurrentWave().getEnemyList()) {
+                try {
                 g.drawImage(
                         enemyImageMap.get(enemy.getType()),
                         enemy.getCoords()[0], 
                         enemy.getCoords()[1],
                         null);
+                }
+                catch (NullPointerException npe) {
+                    System.out.println("npe!"); // TODO - eemaldada..
+                }
             }
         }
     }

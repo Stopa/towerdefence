@@ -10,6 +10,7 @@ public class Wave {
     private final ArrayList<AmmoSprite> ammoSpriteList; //TODO!!!!!!!!!!!!!!!!    
         
     private final Level level; 
+    private ArrayList<Effect> effectList;
     
     //0: infantry väljas, 1: infantry sees
     //2: cavalry väljas, 3: cavalry sees
@@ -20,6 +21,7 @@ public class Wave {
         this.inactiveEnemyList = new ArrayList<Enemy>(); 
         this.enemyList = new ArrayList<Enemy>(); 
         enemyNumbers = new int[]{0,0,0,0,0,0};
+        this.effectList = new ArrayList<Effect>();
         
         this.level = level;
         this.ammoSpriteList = new ArrayList<AmmoSprite>();         
@@ -36,6 +38,18 @@ public class Wave {
             inactiveEnemyList.add(Enemy.getFactoryEnemy(Configuration.ENEMY_KNIGHT_TYPE));
             enemyNumbers[4]++;
         }
+    }
+
+    public void addEffect(Effect effect) {
+        this.effectList.add(effect);
+    }
+    
+    public void removeEffect(Effect effect) {
+        this.effectList.remove(effect);
+    }    
+    
+    public ArrayList<Effect> getEffectList() {
+        return this.effectList;
     }
     
     public int[] getEnemyNumbers() {
