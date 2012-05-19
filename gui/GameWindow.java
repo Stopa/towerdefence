@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import towerdefence.Configuration; 
 import towerdefence.gameelements.Level;
+import towerdefence.gameelements.*; 
 import towerdefence.logic.LevelController;
 
 public class GameWindow extends JFrame implements ActionListener {
@@ -125,6 +126,26 @@ public class GameWindow extends JFrame implements ActionListener {
                 drawArrowTowerButton();
             }
             drawCannonTowerButton();
+        }
+    }
+    
+    public void respondToClick(int x, int y) {
+        Grid grid = level.getGridAt(x, y);
+        if (!grid.canBuild()) {
+            return;
+        }
+        else {
+            if (arrowTowerSelected) {
+                level.addTower(Tower.getFactoryTower(
+                        Configuration.TOWER_ARROWTOWER_TYPE, grid), grid);
+                levelPanel.updateUI();
+            }
+            else if (cannonTowerSelected) {
+                level.addTower(Tower.getFactoryTower(
+                        Configuration.TOWER_CANNONTOWER_TYPE, grid), grid);                
+                levelPanel.updateUI();
+            }
+            else return;
         }
     }
     

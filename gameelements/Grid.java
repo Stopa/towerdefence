@@ -146,52 +146,69 @@ public class Grid {
         //else throw new AssertionError(); //vale gridtype.. 
     }    
     
+    public boolean canBuild() {
+        return (this.gridType.isBuildable() && this.tower == null);
+    }
+    
 public enum GridType {
     
     PATH(0, 
          02, 
          0,
-         true), //tee, mida mööda kollid käivad
+         true,
+         false), //tee, mida mööda kollid käivad
     FOREST(0, 
            03, 
            0,
+           false,
            false), //mets, kuhu torni paigutada ei saa
     GRASS(0, 
           01, 
           0,
-          false), //muru - saab torni paigutada
+          false,
+          true), //muru - saab torni paigutada
     VILLAGE(Configuration.GRID_VILLAGE_MAXHEALTH,
             04, 
             Configuration.VILLAGE_MONEYPERWAVE,
+            false,
             false), //küla - 
     BURNED_VILLAGE(0,
                   06,
                    0,
-                   true),
+                   true,
+                   false),
     CASTLE(Configuration.GRID_CASTLE_MAXHEALTH,
            05, 
            Configuration.CASTLE_MONEYPERWAVE,
+           false,
            false), //"loss" - kollide lõppeesmärk
     //TODO - võta true ära..
     BURNED_CASTLE(0,
                   07,
                   0,
-                  true);
+                  true,
+                  false);
 
     private final int maxHealth; //seda tüüpi gridide max "elu", mida kollid hävitavad
     private int id; // ID - levelite laadimiseks etc
     private int moneyperturn;
     private boolean passable; 
+    private boolean buildable;
         
-    GridType(int maxHealth, int id, int moneyPerTurn, boolean passable) {
+    GridType(int maxHealth, int id, int moneyPerTurn, boolean passable, boolean buildable) {
         this.maxHealth = maxHealth; 
         this.id = id;
         this.moneyperturn = moneyPerTurn;
         this.passable = passable;
+        this.buildable = buildable; 
     }
     
     public boolean isPassable() {
         return this.passable;
+    }
+    
+    public boolean isBuildable() {
+        return this.buildable; 
     }
     
 

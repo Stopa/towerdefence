@@ -14,6 +14,7 @@ public final class Configuration {
     public static final int TOWER_ARROWTOWER_SPEEDLEVELCOEFFICIENT = 1; 
     public static final int TOWER_ARROWTOWER_BASERANGE = 1;
     public static final int TOWER_ARROWTOWER_RANGELEVELCOEFFICIENT = 1;
+    public static final String TOWER_ARROWTOWER_TYPE = "arrow";
     
     //Cannontower
     public static final int TOWER_CANNONTOWER_BASEATTACK = 1; 
@@ -22,6 +23,7 @@ public final class Configuration {
     public static final int TOWER_CANNONTOWER_SPEEDLEVELCOEFFICIENT = 1; 
     public static final int TOWER_CANNONTOWER_BASERANGE = 1;
     public static final int TOWER_CANNONTOWER_RANGELEVELCOEFFICIENT = 1;     
+    public static final String TOWER_CANNONTOWER_TYPE = "cannon";
     
     
     //ENEMIES

@@ -1,6 +1,7 @@
 package towerdefence.gui;
 
 import java.awt.*; 
+import java.awt.event.*; 
 import javax.swing.*;
 import java.io.*; 
 import javax.imageio.*; 
@@ -37,10 +38,22 @@ public class LevelPanel extends JPanel {
 
     int i = 0;     
     
-    private GameWindow gameWindow;         
+    private final GameWindow gameWindow;         
     
-    LevelPanel (GameWindow gameWindow) {
+    LevelPanel (final GameWindow gameWindow) {
         this.gameWindow = gameWindow;  
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                
+                x = (x - (x % 30)) / 30;
+                y = (y - (y % 30)) / 30;                
+                
+                gameWindow.respondToClick(x, y);                
+            }
+        });
         
         initImages();
         initGridImageMap();

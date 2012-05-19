@@ -18,7 +18,8 @@ public class Tower {
     //cachetakse ära siis, kui torn ehitatakse. uuendatakse, kui torn upgradetakse.
     
     
-    public Tower(TowerType towerType) {
+    public Tower(TowerType towerType, Grid grid) {        
+        this.grid = grid;
         this.level = 1; 
         this.turnsToFire = 0; 
         this.towerType = towerType;
@@ -76,6 +77,18 @@ public class Tower {
     
     public void setGrid(Grid grid) {
         this.grid = grid; 
+    }
+    
+    public static Tower getFactoryTower(String type, Grid grid) {      
+        Tower tower = null;
+        if (type.equals(Configuration.TOWER_ARROWTOWER_TYPE)) {            
+            tower = new Tower(TowerType.ArrowTower, grid);
+        }
+        else if (type.equals(Configuration.TOWER_CANNONTOWER_TYPE)) {
+            tower = new Tower(TowerType.CannonTower, grid);
+        }
+        else throw new AssertionError(); 
+        return tower; 
     }
     
     
