@@ -31,6 +31,14 @@ public class Level {
         initTotalMoneyperTurn();
     }       
         
+    public int getTotalWaves() {
+        return this.waveArray.length; 
+    }
+    
+    public int getCurrentWaveNumber() {
+        return this.currentWaveIndex + 1;
+    }
+        
     public boolean isCastleBurned() {
         return this.castleBurned;
     }

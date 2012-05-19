@@ -8,7 +8,6 @@ import towerdefence.Configuration;
 import towerdefence.gameelements.Level;
 import towerdefence.logic.LevelController;
 
-//TODO - implements listener, vastavad meetodid.. 
 public class GameWindow extends JFrame implements ActionListener {
     
     private LevelPanel levelPanel;     
@@ -17,9 +16,34 @@ public class GameWindow extends JFrame implements ActionListener {
     private Level level; 
     private LevelController levelController;
     
+    private JLabel goldLabel; //TODO - hoiab kulda..
+    
+    private JButton buildButton; //TODO - sellele vajutades ehitatakse torn
+    
+    private JButton arrowTowerButton; //TODO - sellele vajutades ehitatakse arrowTower
+    private JButton cannonTowerButton; //TODO - sellel vajutades ehitatakse cannonTower
+    private boolean arrowTowerSelected; //TODO - kas arrow tower on selectitud
+    private boolean cannonTowerSelected; //TODO - kas cannon tower on selectitud 
+    
+    //TODO - joonista nuppudele borderid juba valmis!!! aga alguses painted = false!!
+    //siis hiljem ei pea iga kord uut objekti välja kutsuma vaid paned lihtsalt
+    //.setBorderPainted(true); 
+    
+    
+    private JLabel waveLabel; //TODO - "next wave:" või current wave.. vms.. 
+    private JLabel waveRemainingInfantryLabel; //TODO - infantry järgmises laines
+    private JLabel waveCurrentInfantryLabel; //TODO
+    private JLabel waveRemainingCavalryLabel; //TODO - 
+    private JLabel waveCurrentCavalryLabel; //TODO
+    private JLabel waveRemainingKnightsLabel; //TODO 
+    private JLabel waveCurrentKnightsLabel; 
+    
     public GameWindow(Level level) {                
         
         this.level = level; 
+        
+        this.arrowTowerSelected = false;
+        this.cannonTowerSelected = false; 
         
         this.setLayout(null);
         this.setSize(Configuration.GAMEWINDOW_WIDTH,
@@ -49,6 +73,32 @@ public class GameWindow extends JFrame implements ActionListener {
         startCombatButton.addActionListener(this);
         this.add(startCombatButton);
         
+        arrowTowerButton = new JButton(Configuration.GAMEWINDOW_ARROWTOWERBUTTON_TEXT);
+        arrowTowerButton.setBounds(
+                Configuration.GAMEWINDOW_ARROWTOWERBUTTON_POSX,
+                Configuration.GAMEWINDOW_ARROWTOWERBUTTON_POSY,
+                Configuration.GAMEWINDOW_ARROWTOWERBUTTON_WIDTH,
+                Configuration.GAMEWINDOW_ARROWTOWERBUTTON_HEIGHT);
+        arrowTowerButton.setForeground(Color.RED);
+        arrowTowerButton.setBackground(Color.BLACK);
+        arrowTowerButton.setFocusable(false);
+        arrowTowerButton.addActionListener(this); //TODO - tugi
+        arrowTowerButton.setBorder(BorderFactory.createLineBorder(Color.GRAY,1));        
+        this.add(arrowTowerButton);
+        
+        cannonTowerButton = new JButton(Configuration.GAMEWINDOW_CANNONTOWERBUTTON_TEXT);
+        cannonTowerButton.setBounds(
+                Configuration.GAMEWINDOW_CANNONTOWERBUTTON_POSX,
+                Configuration.GAMEWINDOW_CANNONTOWERBUTTON_POSY,
+                Configuration.GAMEWINDOW_CANNONTOWERBUTTON_WIDTH,
+                Configuration.GAMEWINDOW_CANNONTOWERBUTTON_HEIGHT);
+        cannonTowerButton.setForeground(Color.RED);
+        cannonTowerButton.setBackground(Color.BLACK);
+        cannonTowerButton.setFocusable(false);
+        cannonTowerButton.addActionListener(this); //TODO - tugi
+        cannonTowerButton.setBorder(BorderFactory.createLineBorder(Color.GRAY,1));        
+        this.add(cannonTowerButton);        
+        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setTitle(level.getName());
@@ -57,7 +107,25 @@ public class GameWindow extends JFrame implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        levelController.startCombatPhase();
+        JButton source = (JButton)e.getSource();
+        if (source == startCombatButton)
+            levelController.startCombatPhase();
+        else if (source == arrowTowerButton) {
+            arrowTowerSelected = !arrowTowerSelected;
+            if (arrowTowerSelected) {
+                cannonTowerSelected = false;
+                drawCannonTowerButton();
+            }
+            drawArrowTowerButton();
+        }
+        else if (source == cannonTowerButton) {
+            cannonTowerSelected = !cannonTowerSelected;
+            if (cannonTowerSelected) {
+                arrowTowerSelected = false;
+                drawArrowTowerButton();
+            }
+            drawCannonTowerButton();
+        }
     }
     
     public void setLevelController(LevelController levelController) {
@@ -76,16 +144,82 @@ public class GameWindow extends JFrame implements ActionListener {
         levelPanel.draw();
     }
     
+    private void drawGoldLabel() {
+        goldLabel.setText("Kulda: " + level.getMoney());
+    }
+    
+    private void drawBuildButton() {
+        buildButton.setEnabled(arrowTowerSelected || cannonTowerSelected);
+    }
+    
+    private void drawArrowTowerButton() {
+        if (arrowTowerSelected)
+            arrowTowerButton.setBorder(BorderFactory.createLineBorder(Color.RED,5));       
+        else
+            arrowTowerButton.setBorder(BorderFactory.createLineBorder(Color.GRAY,1));
+    }
+    
+    private void drawCannonTowerButton() {
+        if (cannonTowerSelected)
+            cannonTowerButton.setBorder(BorderFactory.createLineBorder(Color.RED,5));       
+        else
+            cannonTowerButton.setBorder(BorderFactory.createLineBorder(Color.GRAY,1));
+    }
+    
+    private void drawWaveLabel() {
+        waveLabel.setText(Configuration.GAMEWINDOW_WAVELABEL_TEXT +
+                level.getCurrentWaveNumber() + 
+                "/" + 
+                level.getTotalWaves()); 
+    }
+    
+    private void drawWaveRemainingInfantryLabel() {
+        waveRemainingInfantryLabel.setText(
+                Integer.toString(level.getCurrentWave().getEnemyNumbers()[1]));
+    }
+    
+    private void drawWaveCurrentInfantryLabel() {
+        waveCurrentInfantryLabel.setText(
+                Integer.toString(level.getCurrentWave().getEnemyNumbers()[0]));        
+    }
+    
+    private void drawWaveRemainingCavalryLabel() {
+        waveRemainingCavalryLabel.setText(
+                Integer.toString(level.getCurrentWave().getEnemyNumbers()[3]));        
+    }
+    
+    private void drawWaveCurrentCavalryLabel() {
+        waveCurrentCavalryLabel.setText(
+                Integer.toString(level.getCurrentWave().getEnemyNumbers()[2]));        
+    }
+    
+    private void drawWaveRemainingKnightsLabel() {
+        waveRemainingKnightsLabel.setText(
+                Integer.toString(level.getCurrentWave().getEnemyNumbers()[5]));        
+    }
+    
+    private void drawWaveCurrentKnightsLabel() {
+        waveCurrentKnightsLabel.setText(
+                Integer.toString(level.getCurrentWave().getEnemyNumbers()[4]));        
+    }
+    
     
     public void setBuildingPhase(boolean active) {        
         this.buildingPhaseActive = active;
         this.startCombatButton.setEnabled(active);
-        //kui enabletakse, siis... levelPanelile mingi signaal?
-        //kõik mingid ehitusnupud jälle enableda vms? või selleks listeneri lihtsalt
-        //mingi check sisse panna?
+        this.arrowTowerButton.setEnabled(active);
+        this.cannonTowerButton.setEnabled(active);
         
-        
-        //kui disabletakse siis ehitada enam ei saa jne
+        if (!active) {
+            this.arrowTowerSelected = false;
+            this.cannonTowerSelected = false; 
+            drawArrowTowerButton();
+            drawCannonTowerButton();
+        }
+    }
+    
+    public boolean isBuildingPhase() {
+        return this.buildingPhaseActive; 
     }
 
 }

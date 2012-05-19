@@ -55,11 +55,93 @@ public final class Configuration {
     public static final int GAMEWINDOW_HEIGHT = 800;
     public static final int GAMEWINDOW_WIDTH = 600; 
     
+    
+    ///Start Combat Button
     public static final int GAMEWINDOW_STARTCOMBATBUTTON_HEIGHT = 30;
-    public static final int GAMEWINDOW_STARTCOMBATBUTTON_WIDTH = 100;
+    public static final int GAMEWINDOW_STARTCOMBATBUTTON_WIDTH = 150;
     public static final int GAMEWINDOW_STARTCOMBATBUTTON_POSX = 10;
     public static final int GAMEWINDOW_STARTCOMBATBUTTON_POSY = 610;
-    public static final String GAMEWINDOW_STARTCOMBATBUTTON_TEXT = "Combat";    
+    public static final String GAMEWINDOW_STARTCOMBATBUTTON_TEXT = "Kutsu vastased!";    
+    
+    
+    //ArrowTower Button
+    public static final int GAMEWINDOW_ARROWTOWERBUTTON_HEIGHT = 30;
+    public static final int GAMEWINDOW_ARROWTOWERBUTTON_WIDTH = 100;
+    public static final int GAMEWINDOW_ARROWTOWERBUTTON_POSX = 210;
+    public static final int GAMEWINDOW_ARROWTOWERBUTTON_POSY = 610;
+    public static final String GAMEWINDOW_ARROWTOWERBUTTON_TEXT = "Vibutorn";              
+    
+    //CannonTower Button
+    public static final int GAMEWINDOW_CANNONTOWERBUTTON_HEIGHT = 30;
+    public static final int GAMEWINDOW_CANNONTOWERBUTTON_WIDTH = 100;
+    public static final int GAMEWINDOW_CANNONTOWERBUTTON_POSX = 310;
+    public static final int GAMEWINDOW_CANNONTOWERBUTTON_POSY = 610;
+    public static final String GAMEWINDOW_CANNONTOWERBUTTON_TEXT = "Kahuritorn";              
+    
+    //Wave Label
+    public static final int GAMEWINDOW_WAVELABEL_HEIGHT = 30;
+    public static final int GAMEWINDOW_WAVELABEL_WIDTH = 100;
+    public static final int GAMEWINDOW_WAVELABEL_POSX = 10;
+    public static final int GAMEWINDOW_WAVELABEL_POSY = 610;
+    public static final String GAMEWINDOW_WAVELABEL_TEXT = "Vastaste laine: ";      
+    
+    
+    //Remaining Infantry Label
+    public static final int GAMEWINDOW_REMAININGINFANTRYLABEL_HEIGHT = 30;
+    public static final int GAMEWINDOW_REMAININGINFANTRYLABEL_WIDTH = 100;
+    public static final int GAMEWINDOW_REMAININGINFANTRYLABEL_POSX = 10;
+    public static final int GAMEWINDOW_REMAININGINFANTRYLABEL_POSY = 610;
+    public static final String GAMEWINDOW_REMAININGINFANTRYLABEL_TEXT = "Jalamehi tulemas: ";      
+    
+    
+    
+    
+    //Current Infantry Label
+    public static final int GAMEWINDOW_CURRENTINFANTRYLABEL_HEIGHT = 30;
+    public static final int GAMEWINDOW_CURRENTINFANTRYLABEL_WIDTH = 100;
+    public static final int GAMEWINDOW_CURRENTINFANTRYLABEL_POSX = 10;
+    public static final int GAMEWINDOW_CURRENTINFANTRYLABEL_POSY = 610;
+    public static final String GAMEWINDOW_CURRENTINFANTRYLABEL_TEXT = "Jalamehi ründamas: ";      
+    
+    
+    
+    
+    //Remaining Cavalry Label
+    public static final int GAMEWINDOW_REMAININGCAVALRYLABEL_HEIGHT = 30;
+    public static final int GAMEWINDOW_REMAININGCAVALRYLABEL_WIDTH = 100;
+    public static final int GAMEWINDOW_REMAININGCAVALRYLABEL_POSX = 10;
+    public static final int GAMEWINDOW_REMAININGCAVALRYLABEL_POSY = 610;
+    public static final String GAMEWINDOW_REMAININGCAVALRYLABEL_TEXT = "Ratsamehi tulemas: ";      
+    
+    
+    
+    
+    
+    //Current Cavalry Label
+    public static final int GAMEWINDOW_CURRENTCAVALRYLABEL_HEIGHT = 30;
+    public static final int GAMEWINDOW_CURRENTCAVALRYLABEL_WIDTH = 100;
+    public static final int GAMEWINDOW_CURRENTCAVALRYLABEL_POSX = 10;
+    public static final int GAMEWINDOW_CURRENTCAVALRYLABEL_POSY = 610;
+    public static final String GAMEWINDOW_CURRENTCAVALRYLABEL_TEXT = "Ratsamehi ründamas: ";      
+    
+    
+    
+    //Remaining Knights Label
+    public static final int GAMEWINDOW_REMAININGKNIGHTSLABEL_HEIGHT = 30;
+    public static final int GAMEWINDOW_REMAININGKNIGHTSLABEL_WIDTH = 100;
+    public static final int GAMEWINDOW_REMAININGKNIGHTSLABEL_POSX = 10;
+    public static final int GAMEWINDOW_REMAININGKNIGHTSLABEL_POSY = 610;
+    public static final String GAMEWINDOW_REMAININGKNIGHTSLABEL_TEXT = "Rüütleid tulemas: ";      
+    
+    
+    
+    //Current Knights Label
+    public static final int GAMEWINDOW_CURRENTKNIGHTSLABEL_HEIGHT = 30;
+    public static final int GAMEWINDOW_CURRENTKNIGHTSLABEL_WIDTH = 100;
+    public static final int GAMEWINDOW_CURRENTKNIGHTSLABEL_POSX = 10;
+    public static final int GAMEWINDOW_CURRENTKNIGHTSLABEL_POSY = 610;
+    public static final String GAMEWINDOW_CURRENTKNIGHTSLABEL_TEXT = "Rüütleid ründamas: ";      
+    
             
     //LevelPanel
     public static final int LEVELPANEL_POSX = 0;
