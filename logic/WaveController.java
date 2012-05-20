@@ -71,18 +71,21 @@ public class WaveController implements Runnable {
             }
         }        
         
-        //TODO - FAAS 1 - määra tulistamised ja asjad
-        //checkid, et kas saab tulistada ja kas vastane on ranges
-        //tehakse toweri fire() meetodis 
-        for (Tower tower : wave.getLevel().getTowerList()) {
-            tower.fire();
-        }
+        wave.getAmmoSpriteList().clear(); //TODO - kas nii sobib??        
         
         
         //arvutame kollide liikumise..
         for (Enemy enemy : wave.getEnemyList()) {
             enemy.calculateMovePath();
-        }                                
+        }                  
+        
+        for (Tower tower : wave.getLevel().getTowerList()) {
+            tower.fire();
+        }        
+        
+        for (AmmoSprite ammoSprite : wave.getAmmoSpriteList()) {
+            ammoSprite.setCoordsList();
+        }
         
         //protsessime efektid
         levelController.getGameWindow().drawMoneyPerWaveLabel();

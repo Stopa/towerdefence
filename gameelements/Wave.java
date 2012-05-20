@@ -39,6 +39,10 @@ public class Wave {
             enemyNumbers[4]++;
         }
     }
+    
+    public void addAmmoSprite(AmmoSprite ammoSprite) {
+        this.ammoSpriteList.add(ammoSprite);
+    }
 
     public void addEffect(Effect effect) {
         this.effectList.add(effect);

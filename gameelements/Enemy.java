@@ -38,6 +38,11 @@ public class Enemy {
         this.currentCoordsIndex++; 
     }
     
+    public Grid getLastGrid() {
+        if (movePath.isEmpty()) return this.grid;
+        return movePath.get(movePath.size()-1);
+    }
+    
     private void setCoordsList() {
         this.currentCoordsIndex = 0;                
         

@@ -16,6 +16,7 @@ public final class Configuration {
     public static final int TOWER_ARROWTOWER_RANGELEVELCOEFFICIENT = 1;
     public static final String TOWER_ARROWTOWER_TYPE = "arrow";
     public static final int TOWER_ARROWTOWER_COST = 100;
+    public static final String TOWER_ARROWTOWER_AMMOSPRITE_TYPE = "arrow";
     
     //Cannontower
     public static final int TOWER_CANNONTOWER_BASEATTACK = 1; 
@@ -26,6 +27,7 @@ public final class Configuration {
     public static final int TOWER_CANNONTOWER_RANGELEVELCOEFFICIENT = 1;     
     public static final String TOWER_CANNONTOWER_TYPE = "cannon";
     public static final int TOWER_CANNONTOWER_COST = 200;
+    public static final String TOWER_CANNONTOWER_AMMOSPRITE_TYPE = "cannon";
     
     
     //ENEMIES
@@ -70,15 +72,15 @@ public final class Configuration {
     
     //ArrowTower Button
     public static final int GAMEWINDOW_ARROWTOWERBUTTON_HEIGHT = 30;
-    public static final int GAMEWINDOW_ARROWTOWERBUTTON_WIDTH = 100;
+    public static final int GAMEWINDOW_ARROWTOWERBUTTON_WIDTH = 150;
     public static final int GAMEWINDOW_ARROWTOWERBUTTON_POSX = 210;
     public static final int GAMEWINDOW_ARROWTOWERBUTTON_POSY = 610;
     public static final String GAMEWINDOW_ARROWTOWERBUTTON_TEXT = "Vibutorn";              
     
     //CannonTower Button
     public static final int GAMEWINDOW_CANNONTOWERBUTTON_HEIGHT = 30;
-    public static final int GAMEWINDOW_CANNONTOWERBUTTON_WIDTH = 100;
-    public static final int GAMEWINDOW_CANNONTOWERBUTTON_POSX = 310;
+    public static final int GAMEWINDOW_CANNONTOWERBUTTON_WIDTH = 150;
+    public static final int GAMEWINDOW_CANNONTOWERBUTTON_POSX = 360;
     public static final int GAMEWINDOW_CANNONTOWERBUTTON_POSY = 610;
     public static final String GAMEWINDOW_CANNONTOWERBUTTON_TEXT = "Kahuritorn";              
     
@@ -148,7 +150,7 @@ public final class Configuration {
     public static final int GAMEWINDOW_MONEYLABEL_WIDTH = 150;
     public static final int GAMEWINDOW_MONEYLABEL_POSX = 210;
     public static final int GAMEWINDOW_MONEYLABEL_POSY = 645;
-    public static final String GAMEWINDOW_MONEYLABEL_TEXT = "Kulda: ";
+    public static final String GAMEWINDOW_MONEYLABEL_TEXT = "Kuld: ";
     
     //Money Per Wave Label
     public static final int GAMEWINDOW_MONEYPERWAVELABEL_HEIGHT = 18;

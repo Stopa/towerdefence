@@ -89,11 +89,25 @@ public class Tower {
                     Effect.Target.SINGLE,
                     Effect.Type.DAMAGE);
             effect.setTargetEnemy(target);
-            grid.getLevel().getCurrentWave().addEffect(effect);            
+            grid.getLevel().getCurrentWave().addEffect(effect);  
+            grid.getLevel().getCurrentWave().addAmmoSprite(
+                    new AmmoSprite(this.grid,
+                                   target.getLastGrid(),
+                                   Configuration.TOWER_ARROWTOWER_AMMOSPRITE_TYPE));
         }
         
         else if (this.towerType == TowerType.CannonTower) {
-            //TODO
+            Effect effect = new Effect(
+                    1, 
+                    TowerType.CannonTower.getAttack(level),
+                    Effect.Target.SPLASH,
+                    Effect.Type.DAMAGE);
+            effect.setTargetGrid(target.getGrid());
+            grid.getLevel().getCurrentWave().addEffect(effect);              
+            grid.getLevel().getCurrentWave().addAmmoSprite(
+                    new AmmoSprite(this.grid,
+                                   target.getLastGrid(),
+                                   Configuration.TOWER_CANNONTOWER_AMMOSPRITE_TYPE));            
         }
         
         else throw new AssertionError(); 

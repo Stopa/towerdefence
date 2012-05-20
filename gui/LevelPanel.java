@@ -166,7 +166,6 @@ public class LevelPanel extends JPanel {
         }
         
         //joonistame tornid
-        for (int i = 0; i < gameWindow.getLevel().getTowerList().size(); i++) {
             for (Tower tower : gameWindow.getLevel().getTowerList()) {
                 g.drawImage(
                         towerImageMap.get(tower.getTowerType()),
@@ -174,10 +173,8 @@ public class LevelPanel extends JPanel {
                         tower.getGrid().getY() * gridSide,
                         null);
             }            
-        }
         
-        //joonistame vastased
-        for (int i = 0; i < gameWindow.getLevel().getCurrentWave().getEnemyList().size(); i++) {
+        //joonistame vastased {
             for (Enemy enemy : gameWindow.getLevel().getCurrentWave().getEnemyList()) {
                 try {
                 g.drawImage(
@@ -189,6 +186,37 @@ public class LevelPanel extends JPanel {
                 catch (NullPointerException npe) {
                 }
             }
-        }
+        
+        //joonistame kuulid
+            
+            for (AmmoSprite ammoSprite : 
+                    gameWindow.getLevel().getCurrentWave().getAmmoSpriteList()) {
+                if (ammoSprite.getType().equals(
+                        Configuration.TOWER_ARROWTOWER_AMMOSPRITE_TYPE)) { 
+                try {
+                    g.setColor(Color.YELLOW);
+                    g.fillOval(                                                
+                        ammoSprite.getCoords()[0], 
+                        ammoSprite.getCoords()[1],
+                        2,
+                        2);
+                }                
+                catch (NullPointerException npe) {};                
+                }
+                        
+                else if (ammoSprite.getType().equals(
+                        Configuration.TOWER_CANNONTOWER_AMMOSPRITE_TYPE)) { 
+                try {                
+                    g.setColor(Color.BLACK);
+                    g.fillOval(                        
+                        ammoSprite.getCoords()[0], 
+                        ammoSprite.getCoords()[1],
+                        6,
+                        6);
+                    }                
+                catch (NullPointerException npe) {};                
+                }
+                else throw new AssertionError(); 
+            }              
     }
 }

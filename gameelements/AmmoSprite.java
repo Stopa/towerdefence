@@ -30,9 +30,9 @@ public class AmmoSprite {
         return this.type; 
     }
     
-    private void setCoordsList() {
+    public void setCoordsList() {
         this.currentCoordsIndex = 0; 
-        coordsList = new ArrayList<int[]>(); 
+        coordsList = new ArrayList<int[]>();         
         
         int startx = startGrid.getX() * 30 + 15; //TODO - panna confi..
         int starty = startGrid.getY() * 30 + 15; //TODO - panna confi..
@@ -43,14 +43,14 @@ public class AmmoSprite {
         int distx = endx - startx; 
         int disty = endy - starty;
         
-        int stepx = (int)distx / Configuration.MICROTURNS;
-        int stepy = (int)disty / Configuration.MICROTURNS;
+        int stepx = (int)(distx / Configuration.MICROTURNS);
+        int stepy = (int)(disty / Configuration.MICROTURNS);
         
         //lisame kõik positsioonid, kuhu kuul teekonnal satub igal microturnil
         for (int i = 1; i <= Configuration.MICROTURNS; i++) {
             coordsList.add(new int[]{startx + (i * stepx), 
                                      starty + (i * stepy)});
-        }
+        }      
     }
     
     public void micromove() {
