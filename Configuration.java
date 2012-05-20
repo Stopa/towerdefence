@@ -15,6 +15,7 @@ public final class Configuration {
     public static final int TOWER_ARROWTOWER_BASERANGE = 2;
     public static final int TOWER_ARROWTOWER_RANGELEVELCOEFFICIENT = 1;
     public static final String TOWER_ARROWTOWER_TYPE = "arrow";
+    public static final int TOWER_ARROWTOWER_COST = 100;
     
     //Cannontower
     public static final int TOWER_CANNONTOWER_BASEATTACK = 1; 
@@ -24,6 +25,7 @@ public final class Configuration {
     public static final int TOWER_CANNONTOWER_BASERANGE = 4;
     public static final int TOWER_CANNONTOWER_RANGELEVELCOEFFICIENT = 1;     
     public static final String TOWER_CANNONTOWER_TYPE = "cannon";
+    public static final int TOWER_CANNONTOWER_COST = 200;
     
     
     //ENEMIES
@@ -54,7 +56,7 @@ public final class Configuration {
     
     //UI
     //GameWindow
-    public static final int GAMEWINDOW_HEIGHT = 800;
+    public static final int GAMEWINDOW_HEIGHT = 820;
     public static final int GAMEWINDOW_WIDTH = 600; 
     
     
@@ -81,38 +83,34 @@ public final class Configuration {
     public static final String GAMEWINDOW_CANNONTOWERBUTTON_TEXT = "Kahuritorn";              
     
     //Wave Label
-    public static final int GAMEWINDOW_WAVELABEL_HEIGHT = 30;
-    public static final int GAMEWINDOW_WAVELABEL_WIDTH = 100;
+    public static final int GAMEWINDOW_WAVELABEL_HEIGHT = 18;
+    public static final int GAMEWINDOW_WAVELABEL_WIDTH = 150;
     public static final int GAMEWINDOW_WAVELABEL_POSX = 10;
-    public static final int GAMEWINDOW_WAVELABEL_POSY = 610;
+    public static final int GAMEWINDOW_WAVELABEL_POSY = 650;
     public static final String GAMEWINDOW_WAVELABEL_TEXT = "Vastaste laine: ";      
-    
-    
+        
     //Remaining Infantry Label
-    public static final int GAMEWINDOW_REMAININGINFANTRYLABEL_HEIGHT = 30;
-    public static final int GAMEWINDOW_REMAININGINFANTRYLABEL_WIDTH = 100;
+    public static final int GAMEWINDOW_REMAININGINFANTRYLABEL_HEIGHT = 18;
+    public static final int GAMEWINDOW_REMAININGINFANTRYLABEL_WIDTH = 150;
     public static final int GAMEWINDOW_REMAININGINFANTRYLABEL_POSX = 10;
-    public static final int GAMEWINDOW_REMAININGINFANTRYLABEL_POSY = 610;
+    public static final int GAMEWINDOW_REMAININGINFANTRYLABEL_POSY = 670;
     public static final String GAMEWINDOW_REMAININGINFANTRYLABEL_TEXT = "Jalamehi tulemas: ";      
-    
-    
-    
-    
+                
     //Current Infantry Label
-    public static final int GAMEWINDOW_CURRENTINFANTRYLABEL_HEIGHT = 30;
-    public static final int GAMEWINDOW_CURRENTINFANTRYLABEL_WIDTH = 100;
+    public static final int GAMEWINDOW_CURRENTINFANTRYLABEL_HEIGHT = 18;
+    public static final int GAMEWINDOW_CURRENTINFANTRYLABEL_WIDTH = 150;
     public static final int GAMEWINDOW_CURRENTINFANTRYLABEL_POSX = 10;
-    public static final int GAMEWINDOW_CURRENTINFANTRYLABEL_POSY = 610;
+    public static final int GAMEWINDOW_CURRENTINFANTRYLABEL_POSY = 690;
     public static final String GAMEWINDOW_CURRENTINFANTRYLABEL_TEXT = "Jalamehi ründamas: ";      
     
     
     
     
     //Remaining Cavalry Label
-    public static final int GAMEWINDOW_REMAININGCAVALRYLABEL_HEIGHT = 30;
-    public static final int GAMEWINDOW_REMAININGCAVALRYLABEL_WIDTH = 100;
+    public static final int GAMEWINDOW_REMAININGCAVALRYLABEL_HEIGHT = 18;
+    public static final int GAMEWINDOW_REMAININGCAVALRYLABEL_WIDTH = 150;
     public static final int GAMEWINDOW_REMAININGCAVALRYLABEL_POSX = 10;
-    public static final int GAMEWINDOW_REMAININGCAVALRYLABEL_POSY = 610;
+    public static final int GAMEWINDOW_REMAININGCAVALRYLABEL_POSY = 710;
     public static final String GAMEWINDOW_REMAININGCAVALRYLABEL_TEXT = "Ratsamehi tulemas: ";      
     
     
@@ -120,29 +118,44 @@ public final class Configuration {
     
     
     //Current Cavalry Label
-    public static final int GAMEWINDOW_CURRENTCAVALRYLABEL_HEIGHT = 30;
-    public static final int GAMEWINDOW_CURRENTCAVALRYLABEL_WIDTH = 100;
+    public static final int GAMEWINDOW_CURRENTCAVALRYLABEL_HEIGHT = 18;
+    public static final int GAMEWINDOW_CURRENTCAVALRYLABEL_WIDTH = 150;
     public static final int GAMEWINDOW_CURRENTCAVALRYLABEL_POSX = 10;
-    public static final int GAMEWINDOW_CURRENTCAVALRYLABEL_POSY = 610;
+    public static final int GAMEWINDOW_CURRENTCAVALRYLABEL_POSY = 730;
     public static final String GAMEWINDOW_CURRENTCAVALRYLABEL_TEXT = "Ratsamehi ründamas: ";      
     
     
     
     //Remaining Knights Label
-    public static final int GAMEWINDOW_REMAININGKNIGHTSLABEL_HEIGHT = 30;
-    public static final int GAMEWINDOW_REMAININGKNIGHTSLABEL_WIDTH = 100;
+    public static final int GAMEWINDOW_REMAININGKNIGHTSLABEL_HEIGHT = 18;
+    public static final int GAMEWINDOW_REMAININGKNIGHTSLABEL_WIDTH = 150;
     public static final int GAMEWINDOW_REMAININGKNIGHTSLABEL_POSX = 10;
-    public static final int GAMEWINDOW_REMAININGKNIGHTSLABEL_POSY = 610;
+    public static final int GAMEWINDOW_REMAININGKNIGHTSLABEL_POSY = 750;
     public static final String GAMEWINDOW_REMAININGKNIGHTSLABEL_TEXT = "Rüütleid tulemas: ";      
     
     
     
     //Current Knights Label
-    public static final int GAMEWINDOW_CURRENTKNIGHTSLABEL_HEIGHT = 30;
-    public static final int GAMEWINDOW_CURRENTKNIGHTSLABEL_WIDTH = 100;
+    public static final int GAMEWINDOW_CURRENTKNIGHTSLABEL_HEIGHT = 18;
+    public static final int GAMEWINDOW_CURRENTKNIGHTSLABEL_WIDTH = 150;
     public static final int GAMEWINDOW_CURRENTKNIGHTSLABEL_POSX = 10;
-    public static final int GAMEWINDOW_CURRENTKNIGHTSLABEL_POSY = 610;
-    public static final String GAMEWINDOW_CURRENTKNIGHTSLABEL_TEXT = "Rüütleid ründamas: ";      
+    public static final int GAMEWINDOW_CURRENTKNIGHTSLABEL_POSY = 770;
+    public static final String GAMEWINDOW_CURRENTKNIGHTSLABEL_TEXT = "Rüütleid ründamas: ";    
+    
+    
+    //Money Label
+    public static final int GAMEWINDOW_MONEYLABEL_HEIGHT = 18;
+    public static final int GAMEWINDOW_MONEYLABEL_WIDTH = 150;
+    public static final int GAMEWINDOW_MONEYLABEL_POSX = 210;
+    public static final int GAMEWINDOW_MONEYLABEL_POSY = 645;
+    public static final String GAMEWINDOW_MONEYLABEL_TEXT = "Kulda: ";
+    
+    //Money Per Wave Label
+    public static final int GAMEWINDOW_MONEYPERWAVELABEL_HEIGHT = 18;
+    public static final int GAMEWINDOW_MONEYPERWAVELABEL_WIDTH = 150;
+    public static final int GAMEWINDOW_MONEYPERWAVELABEL_POSX = 210;
+    public static final int GAMEWINDOW_MONEYPERWAVELABEL_POSY = 665;
+    public static final String GAMEWINDOW_MONEYPERWAVELABEL_TEXT = "Sissetulek: ";    
     
             
     //LevelPanel

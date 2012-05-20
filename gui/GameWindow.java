@@ -9,15 +9,13 @@ import towerdefence.gameelements.Level;
 import towerdefence.gameelements.*; 
 import towerdefence.logic.LevelController;
 
-public class GameWindow extends JFrame implements ActionListener {
+public final class GameWindow extends JFrame implements ActionListener {
     
     private LevelPanel levelPanel;     
     private JButton startCombatButton;    
     private boolean buildingPhaseActive;     
     private Level level; 
     private LevelController levelController;
-    
-    private JLabel goldLabel; //TODO - hoiab kulda..
     
     private JButton arrowTowerButton; //TODO - sellele vajutades ehitatakse arrowTower
     private JButton cannonTowerButton; //TODO - sellel vajutades ehitatakse cannonTower
@@ -36,6 +34,9 @@ public class GameWindow extends JFrame implements ActionListener {
     private JLabel waveCurrentCavalryLabel; //TODO
     private JLabel waveRemainingKnightsLabel; //TODO 
     private JLabel waveCurrentKnightsLabel; 
+    
+    private JLabel moneyLabel;
+    private JLabel moneyPerTurnLabel;
     
     public GameWindow(Level level) {                
         
@@ -72,7 +73,11 @@ public class GameWindow extends JFrame implements ActionListener {
         startCombatButton.addActionListener(this);
         this.add(startCombatButton);
         
-        arrowTowerButton = new JButton(Configuration.GAMEWINDOW_ARROWTOWERBUTTON_TEXT);
+        arrowTowerButton = new JButton(
+                Configuration.GAMEWINDOW_ARROWTOWERBUTTON_TEXT + 
+                " (" +
+                Configuration.TOWER_ARROWTOWER_COST + 
+                ")");
         arrowTowerButton.setBounds(
                 Configuration.GAMEWINDOW_ARROWTOWERBUTTON_POSX,
                 Configuration.GAMEWINDOW_ARROWTOWERBUTTON_POSY,
@@ -85,7 +90,11 @@ public class GameWindow extends JFrame implements ActionListener {
         arrowTowerButton.setBorder(BorderFactory.createLineBorder(Color.GRAY,1));        
         this.add(arrowTowerButton);
         
-        cannonTowerButton = new JButton(Configuration.GAMEWINDOW_CANNONTOWERBUTTON_TEXT);
+        cannonTowerButton = new JButton(
+                Configuration.GAMEWINDOW_CANNONTOWERBUTTON_TEXT + 
+                " (" + 
+                Configuration.TOWER_CANNONTOWER_COST + 
+                ")");
         cannonTowerButton.setBounds(
                 Configuration.GAMEWINDOW_CANNONTOWERBUTTON_POSX,
                 Configuration.GAMEWINDOW_CANNONTOWERBUTTON_POSY,
@@ -98,9 +107,119 @@ public class GameWindow extends JFrame implements ActionListener {
         cannonTowerButton.setBorder(BorderFactory.createLineBorder(Color.GRAY,1));        
         this.add(cannonTowerButton);        
         
+        /*
+    private JLabel waveRemainingInfantryLabel; //TODO - infantry järgmises laines
+    private JLabel waveCurrentInfantryLabel; //TODO
+    private JLabel waveRemainingCavalryLabel; //TODO - 
+    private JLabel waveCurrentCavalryLabel; //TODO
+    private JLabel waveRemainingKnightsLabel; //TODO 
+    private JLabel waveCurrentKnightsLabel;         
+         * 
+         */
+        
+        waveLabel = new JLabel();
+        waveLabel.setBounds(
+                Configuration.GAMEWINDOW_WAVELABEL_POSX, 
+                Configuration.GAMEWINDOW_WAVELABEL_POSY, 
+                Configuration.GAMEWINDOW_WAVELABEL_WIDTH, 
+                Configuration.GAMEWINDOW_WAVELABEL_HEIGHT);
+        waveLabel.setForeground(Color.RED);
+        waveLabel.setBackground(Color.BLACK);
+        this.add(waveLabel);
+        drawWaveLabel(); 
+                
+        waveRemainingInfantryLabel = new JLabel();
+        waveRemainingInfantryLabel.setBounds(
+                Configuration.GAMEWINDOW_REMAININGINFANTRYLABEL_POSX, 
+                Configuration.GAMEWINDOW_REMAININGINFANTRYLABEL_POSY, 
+                Configuration.GAMEWINDOW_REMAININGINFANTRYLABEL_WIDTH, 
+                Configuration.GAMEWINDOW_REMAININGINFANTRYLABEL_HEIGHT);
+        waveRemainingInfantryLabel.setForeground(Color.RED);
+        waveRemainingInfantryLabel.setBackground(Color.BLACK);
+        this.add(waveRemainingInfantryLabel);
+        drawWaveRemainingInfantryLabel();     
+        
+        waveCurrentInfantryLabel = new JLabel();
+        waveCurrentInfantryLabel.setBounds(
+                Configuration.GAMEWINDOW_CURRENTINFANTRYLABEL_POSX, 
+                Configuration.GAMEWINDOW_CURRENTINFANTRYLABEL_POSY, 
+                Configuration.GAMEWINDOW_CURRENTINFANTRYLABEL_WIDTH, 
+                Configuration.GAMEWINDOW_CURRENTINFANTRYLABEL_HEIGHT);
+        waveCurrentInfantryLabel.setForeground(Color.RED);
+        waveCurrentInfantryLabel.setBackground(Color.BLACK);
+        this.add(waveCurrentInfantryLabel);
+        drawWaveCurrentInfantryLabel();          
+        
+        
+        waveRemainingCavalryLabel = new JLabel();
+        waveRemainingCavalryLabel.setBounds(
+                Configuration.GAMEWINDOW_REMAININGCAVALRYLABEL_POSX, 
+                Configuration.GAMEWINDOW_REMAININGCAVALRYLABEL_POSY, 
+                Configuration.GAMEWINDOW_REMAININGCAVALRYLABEL_WIDTH, 
+                Configuration.GAMEWINDOW_REMAININGCAVALRYLABEL_HEIGHT);
+        waveRemainingCavalryLabel.setForeground(Color.RED);
+        waveRemainingCavalryLabel.setBackground(Color.BLACK);
+        this.add(waveRemainingCavalryLabel);
+        drawWaveRemainingCavalryLabel();           
+        
+        waveCurrentCavalryLabel = new JLabel();
+        waveCurrentCavalryLabel.setBounds(
+                Configuration.GAMEWINDOW_CURRENTCAVALRYLABEL_POSX, 
+                Configuration.GAMEWINDOW_CURRENTCAVALRYLABEL_POSY, 
+                Configuration.GAMEWINDOW_CURRENTCAVALRYLABEL_WIDTH, 
+                Configuration.GAMEWINDOW_CURRENTCAVALRYLABEL_HEIGHT);
+        waveCurrentCavalryLabel.setForeground(Color.RED);
+        waveCurrentCavalryLabel.setBackground(Color.BLACK);
+        this.add(waveCurrentCavalryLabel);
+        drawWaveCurrentCavalryLabel();           
+        
+        waveRemainingKnightsLabel = new JLabel();
+        waveRemainingKnightsLabel.setBounds(
+                Configuration.GAMEWINDOW_REMAININGKNIGHTSLABEL_POSX, 
+                Configuration.GAMEWINDOW_REMAININGKNIGHTSLABEL_POSY, 
+                Configuration.GAMEWINDOW_REMAININGKNIGHTSLABEL_WIDTH, 
+                Configuration.GAMEWINDOW_REMAININGKNIGHTSLABEL_HEIGHT);
+        waveRemainingKnightsLabel.setForeground(Color.RED);
+        waveRemainingKnightsLabel.setBackground(Color.BLACK);
+        this.add(waveRemainingKnightsLabel);
+        drawWaveRemainingKnightsLabel();
+        
+        waveCurrentKnightsLabel = new JLabel();
+        waveCurrentKnightsLabel.setBounds(
+                Configuration.GAMEWINDOW_CURRENTKNIGHTSLABEL_POSX, 
+                Configuration.GAMEWINDOW_CURRENTKNIGHTSLABEL_POSY, 
+                Configuration.GAMEWINDOW_CURRENTKNIGHTSLABEL_WIDTH, 
+                Configuration.GAMEWINDOW_CURRENTKNIGHTSLABEL_HEIGHT);
+        waveCurrentKnightsLabel.setForeground(Color.RED);
+        waveCurrentKnightsLabel.setBackground(Color.BLACK);
+        this.add(waveCurrentKnightsLabel);
+        drawWaveCurrentKnightsLabel();
+        
+        moneyLabel = new JLabel();
+        moneyLabel.setBounds(
+                Configuration.GAMEWINDOW_MONEYLABEL_POSX, 
+                Configuration.GAMEWINDOW_MONEYLABEL_POSY, 
+                Configuration.GAMEWINDOW_MONEYLABEL_WIDTH, 
+                Configuration.GAMEWINDOW_MONEYLABEL_HEIGHT);
+        moneyLabel.setForeground(Color.YELLOW);
+        moneyLabel.setBackground(Color.BLACK);
+        this.add(moneyLabel);
+        drawMoneyLabel();  
+        
+        moneyPerTurnLabel = new JLabel();
+        moneyPerTurnLabel.setBounds(
+                Configuration.GAMEWINDOW_MONEYPERWAVELABEL_POSX, 
+                Configuration.GAMEWINDOW_MONEYPERWAVELABEL_POSY, 
+                Configuration.GAMEWINDOW_MONEYPERWAVELABEL_WIDTH, 
+                Configuration.GAMEWINDOW_MONEYPERWAVELABEL_HEIGHT);
+        moneyPerTurnLabel.setForeground(Color.YELLOW);
+        moneyPerTurnLabel.setBackground(Color.BLACK);
+        this.add(moneyPerTurnLabel);
+        drawMoneyPerWaveLabel();      
+        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        this.setTitle(level.getName());
+        this.setTitle("Kalevite Kangeim Kaitsja!");
         this.setVisible(true); 
     }
     
@@ -133,17 +252,17 @@ public class GameWindow extends JFrame implements ActionListener {
             return;
         }
         else {
-            if (arrowTowerSelected) {
+            if (arrowTowerSelected) {                
                 level.addTower(Tower.getFactoryTower(
-                        Configuration.TOWER_ARROWTOWER_TYPE, grid), grid);
-                levelPanel.updateUI();
+                        Configuration.TOWER_ARROWTOWER_TYPE, grid), grid);                
             }
-            else if (cannonTowerSelected) {
+            else if (cannonTowerSelected) {                
                 level.addTower(Tower.getFactoryTower(
-                        Configuration.TOWER_CANNONTOWER_TYPE, grid), grid);                
-                levelPanel.updateUI();
+                        Configuration.TOWER_CANNONTOWER_TYPE, grid), grid);                              
             }
             else return;
+            levelPanel.updateUI();
+            drawMoneyLabel();
         }
     }
     
@@ -162,10 +281,6 @@ public class GameWindow extends JFrame implements ActionListener {
     public void update() {
         levelPanel.draw();
     }
-    
-    private void drawGoldLabel() {
-        goldLabel.setText("Kulda: " + level.getMoney());
-    }
 
     private void drawArrowTowerButton() {
         if (arrowTowerSelected)
@@ -181,41 +296,59 @@ public class GameWindow extends JFrame implements ActionListener {
             cannonTowerButton.setBorder(BorderFactory.createLineBorder(Color.GRAY,1));
     }
     
-    private void drawWaveLabel() {
+    public void drawWaveLabel() {
         waveLabel.setText(Configuration.GAMEWINDOW_WAVELABEL_TEXT +
                 level.getCurrentWaveNumber() + 
                 "/" + 
                 level.getTotalWaves()); 
     }
     
-    private void drawWaveRemainingInfantryLabel() {
+    public void drawWaveRemainingInfantryLabel() {
         waveRemainingInfantryLabel.setText(
-                Integer.toString(level.getCurrentWave().getEnemyNumbers()[1]));
+                Configuration.GAMEWINDOW_REMAININGINFANTRYLABEL_TEXT + 
+                Integer.toString(level.getCurrentWave().getEnemyNumbers()[0]));
     }
     
-    private void drawWaveCurrentInfantryLabel() {
+    public void drawWaveCurrentInfantryLabel() {
         waveCurrentInfantryLabel.setText(
-                Integer.toString(level.getCurrentWave().getEnemyNumbers()[0]));        
+                Configuration.GAMEWINDOW_CURRENTINFANTRYLABEL_TEXT + 
+                Integer.toString(level.getCurrentWave().getEnemyNumbers()[1]));        
     }
     
-    private void drawWaveRemainingCavalryLabel() {
+    public void drawWaveRemainingCavalryLabel() {
         waveRemainingCavalryLabel.setText(
-                Integer.toString(level.getCurrentWave().getEnemyNumbers()[3]));        
-    }
-    
-    private void drawWaveCurrentCavalryLabel() {
-        waveCurrentCavalryLabel.setText(
+                Configuration.GAMEWINDOW_REMAININGCAVALRYLABEL_TEXT + 
                 Integer.toString(level.getCurrentWave().getEnemyNumbers()[2]));        
     }
     
-    private void drawWaveRemainingKnightsLabel() {
+    public void drawWaveCurrentCavalryLabel() {
+        waveCurrentCavalryLabel.setText(
+                Configuration.GAMEWINDOW_CURRENTCAVALRYLABEL_TEXT + 
+                Integer.toString(level.getCurrentWave().getEnemyNumbers()[3]));        
+    }
+    
+    public void drawWaveRemainingKnightsLabel() {
         waveRemainingKnightsLabel.setText(
+                Configuration.GAMEWINDOW_REMAININGKNIGHTSLABEL_TEXT + 
+                Integer.toString(level.getCurrentWave().getEnemyNumbers()[4]));        
+    }
+    
+    public void drawWaveCurrentKnightsLabel() {
+        waveCurrentKnightsLabel.setText(
+                Configuration.GAMEWINDOW_CURRENTKNIGHTSLABEL_TEXT + 
                 Integer.toString(level.getCurrentWave().getEnemyNumbers()[5]));        
     }
     
-    private void drawWaveCurrentKnightsLabel() {
-        waveCurrentKnightsLabel.setText(
-                Integer.toString(level.getCurrentWave().getEnemyNumbers()[4]));        
+    public void drawMoneyLabel() {
+        moneyLabel.setText(
+                Configuration.GAMEWINDOW_MONEYLABEL_TEXT + 
+                level.getMoney());
+    }
+    
+    public void drawMoneyPerWaveLabel() {
+        moneyPerTurnLabel.setText(
+                Configuration.GAMEWINDOW_MONEYPERWAVELABEL_TEXT + 
+                level.getTotalMoneyPerTurn());
     }
     
     

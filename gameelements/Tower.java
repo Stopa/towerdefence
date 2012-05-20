@@ -132,14 +132,16 @@ public enum TowerType {
                Configuration.TOWER_ARROWTOWER_BASESPEED,
                Configuration.TOWER_ARROWTOWER_SPEEDLEVELCOEFFICIENT,
                Configuration.TOWER_ARROWTOWER_BASERANGE,
-               Configuration.TOWER_ARROWTOWER_RANGELEVELCOEFFICIENT),
+               Configuration.TOWER_ARROWTOWER_RANGELEVELCOEFFICIENT,
+               Configuration.TOWER_ARROWTOWER_COST),
     
     CannonTower(Configuration.TOWER_CANNONTOWER_BASEATTACK,
                 Configuration.TOWER_CANNONTOWER_ATTACKLEVELCOEFFICIENT,
                 Configuration.TOWER_ARROWTOWER_BASESPEED,
                 Configuration.TOWER_ARROWTOWER_SPEEDLEVELCOEFFICIENT,
                 Configuration.TOWER_CANNONTOWER_BASERANGE,
-                Configuration.TOWER_CANNONTOWER_RANGELEVELCOEFFICIENT);
+                Configuration.TOWER_CANNONTOWER_RANGELEVELCOEFFICIENT,
+                Configuration.TOWER_CANNONTOWER_COST);
     
     private int baseAttack;
     private int attackLevelCoefficient; 
@@ -150,20 +152,28 @@ public enum TowerType {
     private int baseRange;
     private int rangeLevelCoefficient;
     
+    private int cost;
+    
     TowerType(int baseAttack,
               int attackLevelCoefficient,
               int baseSpeed,
               int speedLevelCoefficient, 
               int baseRange,
-              int rangeLevelCoefficient) {
+              int rangeLevelCoefficient,
+              int cost) {
                   
         this.baseAttack = baseAttack; 
         this.attackLevelCoefficient = attackLevelCoefficient;
         this.baseSpeed = baseSpeed;
         this.speedLevelCoefficient = speedLevelCoefficient;                     
         this.baseRange = baseRange;
-        this.rangeLevelCoefficient = rangeLevelCoefficient; 
+        this.rangeLevelCoefficient = rangeLevelCoefficient;
+        this.cost = cost; 
     }   
+    
+    public int getCost() {
+        return this.cost; 
+    }
     
     public int getSpeed(int level) {
         return (int)(this.baseSpeed + (level * speedLevelCoefficient)); 

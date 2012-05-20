@@ -2,12 +2,14 @@ package towerdefence.logic;
 
 import towerdefence.gameelements.*;
 import java.util.ArrayList; 
+import towerdefence.Configuration;
 
 public class WaveController implements Runnable {
     
     private Wave wave; 
     private LevelController levelController; 
     private boolean waveOver;
+    private boolean gameOver; 
     
     public WaveController(Wave wave, LevelController levelController) {
         
@@ -24,12 +26,21 @@ public class WaveController implements Runnable {
         this.waveOver = false;
         levelController.getLevel().setCastleBurned(false);
         
+        
         while(!waveOver) {                  
+            if (isGameOver()) {
+                System.out.println("KAOTASID!");
+                return; 
+            }
             turn();         
             this.setWaveOver();
         } 
-        System.out.println("Game over!"); //TODO - tee vingemaks!                
-        levelController.startBuildingPhase();    
+            
+        if (wave.getLevel().getCurrentWaveNumber() < 
+            wave.getLevel().getTotalWaves())
+            levelController.startBuildingPhase();    
+        else
+            System.out.println("SINU VÕIT!");
 
     }
     
@@ -45,8 +56,19 @@ public class WaveController implements Runnable {
                
         //lisame uusi kolle platsile.. 
         if (wave.hasInactiveEnemies()) {
-            wave.addNewEnemy();
-            
+            Enemy enemy = wave.addNewEnemy();            
+            if (enemy.getType().equals(Configuration.ENEMY_INFANTRY_TYPE)) {
+                levelController.getGameWindow().drawWaveCurrentInfantryLabel();
+                levelController.getGameWindow().drawWaveRemainingInfantryLabel();
+            }
+            else if (enemy.getType().equals(Configuration.ENEMY_CAVALRY_TYPE)) {
+                levelController.getGameWindow().drawWaveCurrentCavalryLabel();
+                levelController.getGameWindow().drawWaveRemainingCavalryLabel();
+            }
+            else if (enemy.getType().equals(Configuration.ENEMY_KNIGHT_TYPE)) {
+                levelController.getGameWindow().drawWaveCurrentKnightsLabel(); 
+                levelController.getGameWindow().drawWaveRemainingKnightsLabel();
+            }
         }        
         
         //TODO - FAAS 1 - määra tulistamised ja asjad
@@ -63,7 +85,7 @@ public class WaveController implements Runnable {
         }                                
         
         //protsessime efektid
-        
+        levelController.getGameWindow().drawMoneyPerWaveLabel();
         levelController.getGameWindow().update();
         
         for (Enemy enemy : wave.getEnemyList()) {
@@ -85,9 +107,11 @@ public class WaveController implements Runnable {
                 tmpEffectList.add(effect);
         }                
         
+        
         for (Effect effect : tmpEffectList) {
             wave.removeEffect(effect);
-        }                
+        }  
+        tmpEffectList = null;
                 
         //eemaldame surnud vastased        
         ArrayList<Enemy> tmpList = new ArrayList<Enemy>();
@@ -96,41 +120,25 @@ public class WaveController implements Runnable {
                 tmpList.add(enemy);
         }
         
-        for (Enemy enemy : tmpList) {
-               wave.removeEnemy(enemy);
+        for (Enemy enemy : tmpList) {                
+            wave.removeEnemy(enemy); 
+            if (enemy.getType().equals(Configuration.ENEMY_INFANTRY_TYPE))
+                levelController.getGameWindow().drawWaveCurrentInfantryLabel();
+            else if (enemy.getType().equals(Configuration.ENEMY_CAVALRY_TYPE))
+                levelController.getGameWindow().drawWaveCurrentCavalryLabel();
+            else if (enemy.getType().equals(Configuration.ENEMY_KNIGHT_TYPE)) 
+                levelController.getGameWindow().drawWaveCurrentKnightsLabel();
         }         
+        tmpList = null;
     }
     
 
+    private boolean isGameOver() {
+        return wave.getLevel().isCastleBurned();
+    }
     
     private void setWaveOver() {
-        waveOver = wave.getLevel().isCastleBurned();
-        //TODO - arvuta kas wave on läbi.. 
-        
-        //siin vaata seda ka kas effectslist on tühi vms..? 
-        
+        waveOver = (wave.getEnemyList().isEmpty() && !wave.hasInactiveEnemies());
 
     }
-    
-    
-    //põhimõtteliselt timed loop, mis iga aja tagant protsessib ühe turni
-    
-    
-    //kui kõik on läbi (kas mingi player objekt hävitatud või kõik vastased surnud)
-    //siis timer peatub 
-    //pmst see tingimus võib isegi olla while (???) eks
-    //ja iga turni lõpus arvutatakse
-    
-    
-    //aga jah kui timer peatub
-    
-    //siis kutsutakse levelcontrolleris välja uus see
-    //eks
-    //ee
-    //meetod tähendab
-    //mille peale levelcontroller nullib praeguse wavecontrolleri
-    //laseb ehitada
-    //ja kui start vajutatakse siis algab uus wavecontroller.. 
-    
-
 }

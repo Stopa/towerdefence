@@ -122,7 +122,7 @@ public class LevelPanel extends JPanel {
     }
 
     public void draw() {
-        
+                
         for (int i = 0; i < Configuration.MICROTURNS; i++) {
             if (i != 0 && i!= Configuration.MICROTURNS - 1) {
             try {
@@ -187,7 +187,6 @@ public class LevelPanel extends JPanel {
                         null);
                 }
                 catch (NullPointerException npe) {
-                    System.out.println("npe!"); // TODO - eemaldada..
                 }
             }
         }

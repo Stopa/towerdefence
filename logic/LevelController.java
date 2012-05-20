@@ -33,15 +33,24 @@ public class LevelController {
         }
         
         waveThread = null;    
-        waveController = null; //gc        
+        waveController = null; //gc       
+        level.addMoney(level.getTotalMoneyPerTurn());
+        level.setNextWave();
+        gameWindow.drawWaveLabel();
+        gameWindow.drawWaveCurrentCavalryLabel();
+        gameWindow.drawWaveCurrentInfantryLabel();
+        gameWindow.drawWaveCurrentKnightsLabel();
+        gameWindow.drawWaveRemainingCavalryLabel();
+        gameWindow.drawWaveRemainingInfantryLabel();
+        gameWindow.drawWaveRemainingKnightsLabel();
+        gameWindow.drawMoneyLabel();
         gameWindow.setBuildingPhase(true);
     }
     
     
     //kutsutakse välja siis kui mängija "start" nuppu klikkab vms.. 
     //ehk kui parasjagu on building phase ja mängija otsustab et aitab.. 
-    public void startCombatPhase() {
-        level.setNextWave();
+    public void startCombatPhase() {        
         gameWindow.setBuildingPhase(false);
         waveController = new WaveController(level.getCurrentWave(), this);        
         waveThread = new Thread(waveController);

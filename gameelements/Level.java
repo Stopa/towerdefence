@@ -167,6 +167,8 @@ public class Level {
      * @param grid 
      */
     public void addTower(Tower tower, Grid grid) {
+        if (getMoney() < tower.getTowerType().getCost()) return;     
+        addMoney(-tower.getTowerType().getCost());
         towerList.add(tower);
         tower.setGrid(grid);
         grid.setTower(tower);        

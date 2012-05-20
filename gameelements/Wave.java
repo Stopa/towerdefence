@@ -62,19 +62,26 @@ public class Wave {
     }
     
     //lisab uue vastase levelile
-    public void addNewEnemy() {
+    public Enemy addNewEnemy() {
         Enemy enemy = this.inactiveEnemyList.get(new Random().nextInt(inactiveEnemyList.size()));
-        if (enemy.getType().equals(Configuration.ENEMY_INFANTRY_TYPE))
+        if (enemy.getType().equals(Configuration.ENEMY_INFANTRY_TYPE)) {
+            enemyNumbers[0]--;
             enemyNumbers[1]++;
-        else if (enemy.getType().equals(Configuration.ENEMY_CAVALRY_TYPE))
+        }
+        else if (enemy.getType().equals(Configuration.ENEMY_CAVALRY_TYPE)) {
+            enemyNumbers[2]--;
             enemyNumbers[3]++;
-        else if (enemy.getType().equals(Configuration.ENEMY_KNIGHT_TYPE))
+        }
+        else if (enemy.getType().equals(Configuration.ENEMY_KNIGHT_TYPE)) {
+            enemyNumbers[4]--;        
             enemyNumbers[5]++;
+        }
         this.inactiveEnemyList.remove(enemy);
         this.enemyList.add(enemy);
         Grid grid = level.getRandomStartingGrid();
         enemy.setGrid(grid);
         grid.addEnemy(enemy);        
+        return enemy; 
     }
     
     public ArrayList<AmmoSprite> getAmmoSpriteList() {
@@ -90,12 +97,15 @@ public class Wave {
     }
     
     public void removeEnemy(Enemy enemy) {        
-        if (enemy.getType().equals(Configuration.ENEMY_INFANTRY_TYPE))
-            enemyNumbers[1]--;
-        else if (enemy.getType().equals(Configuration.ENEMY_CAVALRY_TYPE))
+        if (enemy.getType().equals(Configuration.ENEMY_INFANTRY_TYPE)) {
+            enemyNumbers[1]--;            
+        }
+        else if (enemy.getType().equals(Configuration.ENEMY_CAVALRY_TYPE)) {
             enemyNumbers[3]--;
-        else if (enemy.getType().equals(Configuration.ENEMY_KNIGHT_TYPE))
+        }
+        else if (enemy.getType().equals(Configuration.ENEMY_KNIGHT_TYPE)) {
             enemyNumbers[5]--;
+        }
         enemy.getGrid().getEnemyList().remove(enemy);
         this.enemyList.remove(enemy);     
         enemy.die();
