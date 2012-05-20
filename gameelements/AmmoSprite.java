@@ -47,7 +47,7 @@ public class AmmoSprite {
         int stepy = (int)(disty / Configuration.MICROTURNS);
         
         //lisame kõik positsioonid, kuhu kuul teekonnal satub igal microturnil
-        for (int i = 1; i <= Configuration.MICROTURNS; i++) {
+        for (int i = 0; i <= Configuration.MICROTURNS; i++) {
             coordsList.add(new int[]{startx + (i * stepx), 
                                      starty + (i * stepy)});
         }      

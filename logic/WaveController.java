@@ -142,6 +142,5 @@ public class WaveController implements Runnable {
     
     private void setWaveOver() {
         waveOver = (wave.getEnemyList().isEmpty() && !wave.hasInactiveEnemies());
-
     }
 }
