@@ -64,6 +64,7 @@ public class LevelListWindow extends JFrame implements ActionListener {
 		exitButton.setBounds(150,400,200,40);
 		exitButton.setBackground(Color.gray);
 		exitButton.addActionListener(this);
+                exitButton.setFocusable(false);
 		add(exitButton);
 		
 		setVisible(true);
@@ -104,6 +105,7 @@ public class LevelListWindow extends JFrame implements ActionListener {
 		
 		public LevelButton(String name) {
 			super(name);
+                        this.setFocusable(false);
 		}
 		
 		public void setLevelFile(File f) {

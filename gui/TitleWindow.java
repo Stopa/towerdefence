@@ -28,18 +28,21 @@ public class TitleWindow extends JFrame implements ActionListener {
 		playButton.addActionListener(this);
 		playButton.setBounds(150,260,200,40);
 		playButton.setBackground(Color.gray);
+                playButton.setFocusable(false);
 		add(playButton);
 		
 		editButton = new JButton("Ehita leveleid");
 		editButton.addActionListener(this);
 		editButton.setBounds(150,320,200,40);
 		editButton.setBackground(Color.gray);
+                editButton.setFocusable(false);
 		add(editButton);
 		
 		exitButton = new JButton("Välju");
 		exitButton.addActionListener(this);
 		exitButton.setBounds(150,380,200,40);
 		exitButton.setBackground(Color.gray);
+                exitButton.setFocusable(false);
 		add(exitButton);
 		
 		setVisible(true);
