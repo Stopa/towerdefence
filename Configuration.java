@@ -1,6 +1,10 @@
 package towerdefence;
 
 public final class Configuration {
+	
+	//PATHS
+	public static final String MAPS_PATH = "src\\towerdefence\\maps\\";
+	public static final String MAPS_EXTENSION = ".map";
     
     //LEVEL
     public static final int LEVEL_HEIGHT = 20;
@@ -57,6 +61,9 @@ public final class Configuration {
 
     
     //UI
+    //TitleWindow
+    public static final String BANNER_PATH = "src\\towerdefence\\bitmapimages\\banner.png";
+    
     //GameWindow
     public static final int GAMEWINDOW_HEIGHT = 820;
     public static final int GAMEWINDOW_WIDTH = 600; 

@@ -4,7 +4,10 @@ import java.awt.*;
 import java.awt.event.*; 
 import javax.swing.*;
 import java.util.*; 
-import java.io.*; 
+import java.io.*;
+
+import towerdefence.Configuration;
+import towerdefence.gui.*;
 
 public class LevelBuilder extends JFrame implements ActionListener {
     
@@ -70,6 +73,7 @@ public class LevelBuilder extends JFrame implements ActionListener {
     private ArrayList<Wave> waves; 
     
     //?
+    private JButton backButton;
     
     public static void main(String[] args) {
         new LevelBuilder();
@@ -238,6 +242,11 @@ public class LevelBuilder extends JFrame implements ActionListener {
         finishButton.setForeground(Color.black);
         this.add(finishButton);
         
+        backButton = new JButton("Tagasi");
+        backButton.setBounds(10,540,180,30);
+        backButton.addActionListener(this);
+        this.add(backButton);
+        
         /*cleanButton = new JButton("Kustuta");
         cleanButton.setBounds(100,485,90,20);
         cleanButton.addActionListener(this);
@@ -309,7 +318,11 @@ public class LevelBuilder extends JFrame implements ActionListener {
         	this.currentTerrainType = TerrainType.OUTPOST;
         } else if(e.getSource() == this.finishButton) {
         	this.currentTerrainType = TerrainType.FINISH;
+        } else if(e.getSource() == this.backButton) {
+        	new TitleWindow();
+        	dispose();
         }/*else if(e.getSource() == this.cleanButton) {
+        }
         	this.currentTerrainType = TerrainType.EMPTY;
         }*/ /* grid buttons */else if(e.getSource().getClass().getName() == "towerdefence.levelbuilder.LevelBuilder$GridButton") {
         	GridButton object = (GridButton)e.getSource();
@@ -429,7 +442,7 @@ public class LevelBuilder extends JFrame implements ActionListener {
         }
         
         try {
-        	f = new File(filename);
+        	f = new File(Configuration.MAPS_PATH+filename+Configuration.MAPS_EXTENSION);
             fw = new FileWriter(f);
             bw = new BufferedWriter(fw);
             
@@ -470,7 +483,7 @@ public class LevelBuilder extends JFrame implements ActionListener {
         BufferedReader bfr = null;    
         
         try {
-            f = new File(filename);        
+            f = new File(Configuration.MAPS_PATH+filename+Configuration.MAPS_EXTENSION);        
             fr = new FileReader(f);
             bfr = new BufferedReader(fr);        
             char[] ccontent = new char[(int)f.length()];                    
