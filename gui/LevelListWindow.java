@@ -33,15 +33,20 @@ public class LevelListWindow extends JFrame implements ActionListener {
 		levelsContainer = new JPanel();
 		levelsContainer.setLayout(null);
 		levelsContainer.setBackground(Color.black);
-		
+                
+                
 		levelsScrollContainer = new JScrollPane(levelsContainer);
 		levelsScrollContainer.getViewport().setBackground(Color.black);
 		levelsScrollContainer.setBounds(100,80,300,300);
 		levelsScrollContainer.setPreferredSize(new Dimension(300,300));
 		levelsScrollContainer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+		add(levelsScrollContainer);                
 		
+
 		File lvlDir = new File(Configuration.MAPS_PATH);
 		Levels = lvlDir.listFiles(new LevelFilter());
+                levelsContainer.setPreferredSize(new Dimension(280, Levels.length * 20));
 		int y = 0;
 		
 		for(File f: Levels) {
@@ -54,9 +59,7 @@ public class LevelListWindow extends JFrame implements ActionListener {
 			b.addActionListener(this);
 			levelsContainer.add(b);
 		}
-
-		add(levelsScrollContainer);
-		
+                
 		exitButton = new JButton("Tagasi");
 		exitButton.setBounds(150,400,200,40);
 		exitButton.setBackground(Color.gray);
